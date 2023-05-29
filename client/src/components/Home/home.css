@@ -1,0 +1,9 @@
+@media (max-aspect-ratio: 1.13){
+  .topHead h1{
+    font-size: 65px;
+  }
+
+  .menuHead h1{
+    font-size: 30px;
+  }
+}
