@@ -3,9 +3,12 @@ import logo from "../../assets/logo.png";
 import "./navbar.css";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close'
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../../context/user/usercontext";
 
 const Navbar = () => {
+    const authUser = useContext(UserContext);
+    console.log(authUser);
     const [showNav,setNav] = useState(false);
 
   return (
@@ -18,6 +21,7 @@ const Navbar = () => {
           backgroundColor: "#0F0E0E",
           width: "100%",
           position: "fixed",
+          top:0,
           zIndex: 5,
         }}
       >
@@ -78,6 +82,21 @@ const Navbar = () => {
           >
             <a href="/" style={{textDecoration:"none", color:"#fff"}}>HELP</a>
           </Typography>
+          {
+            authUser.state.id ? <Typography
+            className="navlinks"
+            style={{
+              color: "#fff",
+              textAlign: "right",
+              marginRight: "4%",
+              fontSize: "2vh",
+              letterSpacing: 3,
+              fontWeight: 500,
+            }}
+            variant="h5"
+          >
+            <a href="/login" style={{textDecoration:"none", color:"#fff"}}>LOGOUT</a>
+          </Typography>:
           <Typography
             className="navlinks"
             style={{
@@ -90,8 +109,10 @@ const Navbar = () => {
             }}
             variant="h5"
           >
-            <a href="/" style={{textDecoration:"none", color:"#fff"}}>LOGIN</a>
+            <a href="/login" style={{textDecoration:"none", color:"#fff"}}>LOGIN/REGISTER</a>
           </Typography>
+          }
+          
           {
             showNav ? <CloseIcon onClick={() => {setNav(!showNav)}} className="micon" style={{color:"#fff"}}/> : <MenuIcon onClick={() => {setNav(!showNav)}} className="micon" style={{color:"#fff"}}/>
           }
@@ -132,7 +153,8 @@ const Navbar = () => {
             
           </Typography>
       
-      <Typography
+            {
+              authUser.state.id ? <Typography
             style={{
               color: "#fff",
               textAlign: "right",
@@ -143,9 +165,26 @@ const Navbar = () => {
             }}
             variant="h5"
           >
-          <a href="/" style={{textDecoration:"none", color:"#fff"}}>LOGIN</a>
+          <a href="/" style={{textDecoration:"none", color:"#fff"}}>LOGOUT</a>
+            
+          </Typography> : 
+          <Typography
+            style={{
+              color: "#fff",
+              textAlign: "right",
+              fontSize: "2vh",
+              letterSpacing: 3,
+              fontWeight: 500,
+              margin:"3% auto"
+            }}
+            variant="h5"
+          >
+          <a href="/login" style={{textDecoration:"none", color:"#fff"}}>LOGIN/REGISTER</a>
             
           </Typography>
+            }
+
+      
      
       <Typography
             style={{

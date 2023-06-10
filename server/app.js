@@ -3,17 +3,25 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const PORT = process.env.PORT || 3005;
 const dbConnection = require("./database/connect");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: "http://localhost:5173"
+}));
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 dbConnection();
+
+app.use("/", require("./router/router"));
+
 
 
 app.listen(PORT, () => {

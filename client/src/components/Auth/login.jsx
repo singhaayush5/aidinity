@@ -5,23 +5,72 @@ import {
   Grid,
   TextField,
   Typography,
+  Alert,
+  Collapse,
+  IconButton
 } from "@mui/material";
+
+import CloseIcon from "@mui/icons-material/Close"
 
 import login from "../../assets/login.jpg";
 
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect, useContext} from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../context/user/usercontext";
 import "./auth.css";
 
 function Login() {
+  const navigate = useNavigate();
+  const authUser = useContext(UserContext);
+
+  const [loginError, setLoginError] = useState(false);
+
+  useEffect(() => {
+    document.title = "Aidinity | Login";
+  }, []);
+
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: null,
+    password: null,
   });
 
   const handleChange = (eve) => {
     console.log(user);
     setUser({ ...user, [eve.target.name]: eve.target.value });
     console.log(user.branch);
+  };
+
+  const postUserData = async (eve) => {
+    eve.preventDefault();
+    const { email, password } = user;
+
+    const res = await axios
+      .post(
+        "http://localhost:8080/login",
+        { email: email, password: password },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          authUser.getCurrUser();
+          navigate("/");
+        } else {
+          setLoginError(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginError(true);
+      });
+
+    console.log(res);
   };
 
   return (
@@ -55,7 +104,6 @@ function Login() {
           }}
         >
           <div
-            
             style={{
               backgroundColor: "#000",
               height: "100%",
@@ -69,7 +117,6 @@ function Login() {
             <Typography
               style={{ fontWeight: 600, color: "#fff", margin: "2% auto" }}
               variant="h3"
-              align="Center"
             >
               Login
             </Typography>
@@ -165,15 +212,58 @@ function Login() {
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      <Button
-                        sx={{ borderRadius: 0, fontWeight: 600 }}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                      >
-                        Submit
-                      </Button>
+                      {user.email && user.password ? (
+                        <Button
+                          sx={{ borderRadius: 0, fontWeight: 600 }}
+                          type="submit"
+                          onClick={postUserData}
+                          variant="contained"
+                          color="primary"
+                          fullWidth
+                        >
+                          Submit
+                        </Button>
+                      ) : (
+                        <Button
+                          sx={{
+                            borderRadius: 0,
+                            fontWeight: 600,
+                            "&.Mui-disabled": {
+                              background: "#4f4f4f",
+                              color: "#9b9e9e",
+                            },
+                          }}
+                          variant="contained"
+                          disabled
+                          fullWidth
+                        >
+                          Submit
+                        </Button>
+                      )}
+                    </Grid>
+                    <Grid xs={12} item>
+                      
+                        <Collapse in={loginError}>
+                          <Alert
+                            severity="error"
+                            action={
+                              <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                  setLoginError(!loginError);
+                                }}
+                              >
+                                <CloseIcon fontSize="inherit" />
+                              </IconButton>
+                            }
+                            sx={{ mb: 2 }}
+                          >
+                            <strong>Invalid credentials</strong> - retry.
+                          </Alert>
+                        </Collapse>
+                      
                     </Grid>
                     <Grid xs={12} item>
                       <Typography

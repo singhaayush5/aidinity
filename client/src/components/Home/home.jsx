@@ -2,11 +2,41 @@ import { Typography } from "@mui/material";
 import helpinghands from "../../assets/helpinghands.png";
 import "./home.css";
 import Navbar from "../Navbar/navbar";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  // const callHomePage = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:8080/checkuser", {
+  //       withCredentials: true,
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     console.log(res);
+
+  //     if (res.status !== 200) {
+  //       const err = new Error(res.error);
+  //       throw err;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     navigate("/login");
+  //   }
+  // };
+
+  useEffect(() => {
+    document.title = "Aidinity";
+    // callHomePage();
+  }, []);
+
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <div
         style={{
           minHeight: "92vh",
@@ -39,9 +69,8 @@ const Home = () => {
             textAlign: "center",
             color: "#fff",
             fontWeight: 600,
-            fontSize: "160px",
+            fontSize: "14vw",
             position: "fixed",
-            
           }}
           variant="h1"
         >

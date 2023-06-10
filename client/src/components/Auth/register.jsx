@@ -5,24 +5,55 @@ import {
   Grid,
   TextField,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 import register from "../../assets/register.jpg";
-
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect} from "react";
 import "./auth.css";
 
 function Register() {
+  useEffect(() => {
+    document.title = "Aidinity | Register"
+  },[])
+
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: null,
+    age: null,
+    sex: null,
+    email: null,
+    password: null,
+    cnfpassword: null,
   });
 
   const handleChange = (eve) => {
     console.log(user);
     setUser({ ...user, [eve.target.name]: eve.target.value });
     console.log(user.branch);
+  };
+
+  const postUserData = async (eve) => {
+    eve.preventDefault();
+    const { name, age, sex, email, password, cnfpassword } = user;
+
+    const res = await axios
+      .post(
+        "http://localhost:8080/register",
+        { name: name, age: age, sex: sex, email: email, password: password },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log(res);
   };
 
   return (
@@ -94,7 +125,7 @@ function Register() {
                           "& input": {
                             color: "#fff",
                           },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "white" },
                           "& .MuiOutlinedInput-root": {
                             "& > fieldset": {
                               borderColor: "#fff",
@@ -126,13 +157,115 @@ function Register() {
                         required
                       />
                     </Grid>
+                    <Grid xs={6} sm={6} item>
+                      <TextField
+                        sx={{
+                          "& input": {
+                            color: "#fff",
+                          },
+                          "& .MuiInputLabel-root": { color: "white" },
+                          "& .MuiOutlinedInput-root": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                            },
+                          },
+                          "& .MuiOutlinedInput-root:hover": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                              color: "white",
+                            },
+                          },
+                          "& .MuiOutlinedInput-root.Mui-focused": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                            },
+                          },
+                        }}
+                        inputMode="dark"
+                        size="small"
+                        name="age"
+                        type="number"
+                        value={user.age}
+                        inputProps={{ min: 0 }}
+                        onChange={handleChange}
+                        label="Age"
+                        variant="outlined"
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                    <Grid xs={6} sm={6} item>
+                      <FormControl
+                        name="sex"
+                        fullWidth
+                        required
+                        sx={{
+                          "& input": {
+                            color: "#fff",
+                          },
+                          "& .MuiInputLabel-root": { color: "white" },
+                          "& .MuiOutlinedInput-root": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                            },
+                          },
+                          "& .MuiOutlinedInput-root:hover": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                              color: "white",
+                            },
+                          },
+                          "& .MuiOutlinedInput-root.Mui-focused": {
+                            "& > fieldset": {
+                              borderColor: "#fff",
+                              borderRadius: 0,
+                            },
+                          },
+                        }}
+                      >
+                        <InputLabel size="small" id="select-sex-label">
+                          Sex
+                        </InputLabel>
+                        <Select
+                          size="small"
+                          sx={{
+                            color: "#fff",
+                            ".MuiSvgIcon-root ": {
+                              fill: "white !important",
+                            },
+                          }}
+                          MenuProps={{
+                            sx: {
+                              "&& .Mui-selected": {
+                                backgroundColor: "#3b3b3b",
+                                color: "#fff",
+                              },
+                            },
+                          }}
+                          value={user.sex}
+                          name="sex"
+                          onChange={handleChange}
+                          labelId="select-sex-label"
+                          label="sex"
+                        >
+                          <MenuItem value={"F"}>Female</MenuItem>
+                          <MenuItem value={"M"}>Male</MenuItem>
+                          <MenuItem value={"O"}>Others</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
                     <Grid xs={12} item>
                       <TextField
                         sx={{
                           "& input": {
                             color: "#fff",
                           },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "white" },
                           "& .MuiOutlinedInput-root": {
                             "& > fieldset": {
                               borderColor: "#fff",
@@ -171,7 +304,7 @@ function Register() {
                           "& input": {
                             color: "#fff",
                           },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "white" },
                           "& .MuiOutlinedInput-root": {
                             "& > fieldset": {
                               borderColor: "#fff",
@@ -209,7 +342,7 @@ function Register() {
                           "& input": {
                             color: "#fff",
                           },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "white" },
                           "& .MuiOutlinedInput-root": {
                             "& > fieldset": {
                               borderColor: "#fff",
@@ -242,15 +375,39 @@ function Register() {
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      <Button
-                        sx={{ borderRadius: 0, fontWeight: 600 }}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                      >
-                        Submit
-                      </Button>
+                      {user.name &&
+                      user.age &&
+                      user.sex &&
+                      user.email &&
+                      user.password &&
+                      user.password === user.cnfpassword ? (
+                        <Button
+                          sx={{ borderRadius: 0, fontWeight: 600 }}
+                          type="submit"
+                          onClick={postUserData}
+                          variant="contained"
+                          color="primary"
+                          fullWidth
+                        >
+                          Submit
+                        </Button>
+                      ) : (
+                        <Button
+                          sx={{
+                            borderRadius: 0,
+                            fontWeight: 600,
+                            "&.Mui-disabled": {
+                              background: "#4f4f4f",
+                              color: "#9b9e9e",
+                            },
+                          }}
+                          variant="contained"
+                          disabled
+                          fullWidth
+                        >
+                          Submit
+                        </Button>
+                      )}
                     </Grid>
                     <Grid xs={12} item>
                       <Typography
