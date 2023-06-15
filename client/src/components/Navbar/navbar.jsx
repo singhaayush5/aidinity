@@ -122,7 +122,7 @@ const Navbar = () => {
         </div>
       </div>
       {
-        showNav && <div className="micon slide-left" style={{backgroundColor:"#0F0E0E", zIndex:6,marginTop:"8vh", position:"fixed", right:0,  width:"30vh", height:"92vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
+        showNav && <div className="micon slide-left" style={{backgroundColor:"#0F0E0E", zIndex:6,marginTop:"8vh", position:"fixed", right:0, top:0,  width:"30vh", height:"92vh", display:"flex", flexDirection:"column", alignItems:"center"}}>
       <Typography
             style={{
               color: "#fff",

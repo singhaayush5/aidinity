@@ -24,7 +24,7 @@ function Register() {
   const [user, setUser] = useState({
     name: null,
     age: null,
-    sex: null,
+    gender: null,
     email: null,
     password: null,
     cnfpassword: null,
@@ -38,12 +38,12 @@ function Register() {
 
   const postUserData = async (eve) => {
     eve.preventDefault();
-    const { name, age, sex, email, password, cnfpassword } = user;
+    const { name, age, gender, email, password, cnfpassword } = user;
 
     const res = await axios
       .post(
         "http://localhost:8080/register",
-        { name: name, age: age, sex: sex, email: email, password: password },
+        { name: name, age: age, gender: gender, email: email, password: password },
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
@@ -199,7 +199,7 @@ function Register() {
                     </Grid>
                     <Grid xs={6} sm={6} item>
                       <FormControl
-                        name="sex"
+                        name="gender"
                         fullWidth
                         required
                         sx={{
@@ -228,8 +228,8 @@ function Register() {
                           },
                         }}
                       >
-                        <InputLabel size="small" id="select-sex-label">
-                          Sex
+                        <InputLabel size="small" id="select-gender-label">
+                          Gender
                         </InputLabel>
                         <Select
                           size="small"
@@ -247,11 +247,11 @@ function Register() {
                               },
                             },
                           }}
-                          value={user.sex}
-                          name="sex"
+                          value={user.gender}
+                          name="gender"
                           onChange={handleChange}
-                          labelId="select-sex-label"
-                          label="sex"
+                          labelId="select-gender-label"
+                          label="gender"
                         >
                           <MenuItem value={"F"}>Female</MenuItem>
                           <MenuItem value={"M"}>Male</MenuItem>
@@ -377,7 +377,7 @@ function Register() {
                     <Grid xs={12} item>
                       {user.name &&
                       user.age &&
-                      user.sex &&
+                      user.gender &&
                       user.email &&
                       user.password &&
                       user.password === user.cnfpassword ? (

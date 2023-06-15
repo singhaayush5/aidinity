@@ -5,9 +5,9 @@ const bcrypt = require("bcrypt");
 exports.register = async (req, res) => {
   try {
     
-    const { name, age, sex, email, password } = req.body;
+    const { name, age, gender, email, password } = req.body;
 
-    if(!name || !age || !sex || !email || !password){
+    if(!name || !age || !gender || !email || !password){
         return res.status(400).json({msg : "some or all fields are empty!"});
     }
 
@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
     const newUser = new User({
       name,
       age,
-      sex,
+      gender,
       email,
       password,
     });

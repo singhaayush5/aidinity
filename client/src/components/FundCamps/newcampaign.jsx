@@ -16,14 +16,57 @@ import Navbar from "../Navbar/navbar";
 import axios from "axios";
 
 const NewCampaign = () => {
+
+    const states = [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal",
+        "AN Island",
+        "Chandigarh",
+        "D&NH/D&D",
+        "Delhi",
+        "Ladakh",
+        "Lakshadweep",
+        "J&K",
+        "Puducherry"
+
+    ]
+
   const [camp, setCamp] = useState({
     fname: null,
     lname: null,
     age: null,
-    sex: null,
+    gender: null,
     disease: null,
     description: null,
     amt: null,
+    state: null,
+    city: null
   });
 
   const handleChange = (eve) => {
@@ -34,7 +77,7 @@ const NewCampaign = () => {
   const postCampData = async (eve) => {
     eve.preventDefault();
     try {
-      const { fname, lname, age, sex, disease, description, amt } = camp;
+      const { fname, lname, age, gender, disease, description, amt, state, city } = camp;
 
       const fullname = fname + " " + lname;
 
@@ -44,10 +87,12 @@ const NewCampaign = () => {
           {
             name: fullname,
             age: age,
-            sex: sex,
+            gender: gender,
             disease: disease,
             description: description,
             amt: amt,
+            state: state,
+            city: city
           },
           {
             withCredentials: true,
@@ -85,20 +130,20 @@ const NewCampaign = () => {
         <Typography
           sx={{
             fontSize: "2.5vw",
-            fontWeight: 500,
+            fontWeight: 600,
             letterSpacing: 1,
             margin: "1% 0%",
           }}
           color="#fff"
           variant="h1"
         >
-          <span style={{ color: "#8E5BEB" }}>Start</span> a new fundraiser
+          <span style={{ color: "#8E5BEB", fontWeight:700 }}>Start</span> a new fundraiser
           campaign.
         </Typography>
         <Card
           sx={{
             width: "65%",
-            backgroundColor: "#2a2727",
+            backgroundColor: "#222222",
             padding: 5,
             borderRadius: 7,
             display: "flex",
@@ -123,7 +168,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                      "& .MuiInputLabel-root": { color: "white" }, 
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -161,7 +206,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                      "& .MuiInputLabel-root": { color: "white" }, 
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -237,7 +282,7 @@ const NewCampaign = () => {
                 </Grid>
                 <Grid xs={6} sm={6} item>
                   <FormControl
-                    name="sex"
+                    name="gender"
                     fullWidth
                     required
                     sx={{
@@ -266,8 +311,8 @@ const NewCampaign = () => {
                       },
                     }}
                   >
-                    <InputLabel size="small" id="select-sex-label">
-                      Sex
+                    <InputLabel size="small" id="select-gender-label">
+                      Gender
                     </InputLabel>
                     <Select
                       size="small"
@@ -286,17 +331,130 @@ const NewCampaign = () => {
                         },
                       }}
                       variant="filled"
-                      name="sex"
+                      name="gender"
                       onChange={handleChange}
-                      value={camp.sex}
-                      labelId="select-sex-label"
-                      label="sex"
+                      value={camp.gender}
+                      labelId="select-gender-label"
+                      label="Gender"
                     >
                       <MenuItem value={"F"}>Female</MenuItem>
                       <MenuItem value={"M"}>Male</MenuItem>
                       <MenuItem value={"O"}>Others</MenuItem>
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <Typography
+                    color="#777777"
+                    sx={{ letterSpacing: 1, marginTop: 4 }}
+                  >
+                    DOMICILE DETAILS
+                  </Typography>
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <Divider color="#444444" />
+                </Grid>
+                <Grid xs={6} sm={6} item>
+                  <FormControl
+                    name="state"
+                    fullWidth
+                    required
+                    sx={{
+                      "& input": {
+                        color: "#fff",
+                      },
+                      "& .MuiInputLabel-root": { color: "white" },
+                      "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      "& .MuiOutlinedInput-root:hover": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                          color: "white",
+                        },
+                      },
+                      "& .MuiOutlinedInput-root.Mui-focused": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                    }}
+                  >
+                    <InputLabel size="small" id="select-gender-label">
+                      State/UT
+                    </InputLabel>
+                    <Select
+                      size="small"
+                      sx={{
+                        color: "#fff",
+                        ".MuiSvgIcon-root ": {
+                          fill: "white !important",
+                        },
+                      }}
+                      MenuProps={{
+                        sx: {
+                          "&& .Mui-selected": {
+                            backgroundColor: "#3b3b3b",
+                            color: "#fff",
+                          },
+                        },
+                      }}
+                      variant="filled"
+                      name="state"
+                      onChange={handleChange}
+                      value={camp.state}
+                      labelId="select-state-label"
+                      label="state"
+                    >
+                    {
+                        states.map((state,idx) => <MenuItem key={idx+1} value={state}>{state}</MenuItem>)
+                    }
+                      
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid xs={6} sm={6} item>
+                  <TextField
+                    sx={{
+                      "& input": {
+                        color: "#fff",
+                      },
+                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      "& .MuiOutlinedInput-root:hover": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                          color: "white",
+                        },
+                      },
+                      "& .MuiOutlinedInput-root.Mui-focused": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                    }}
+                    inputMode="dark"
+                    size="small"
+                    name="city"
+                    label="City"
+                    variant="filled"
+                    onChange={handleChange}
+                    value={camp.city}
+                    fullWidth
+                    required
+                  />
                 </Grid>
                 <Grid xs={12} sm={12} item>
                   <Typography
@@ -315,7 +473,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                      "& .MuiInputLabel-root": { color: "white" }, 
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -353,7 +511,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                      "& .MuiInputLabel-root": { color: "white" }, 
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -385,7 +543,7 @@ const NewCampaign = () => {
                     onChange={handleChange}
                     variant="filled"
                     inputProps={{ style: { color: "#fff" } }}
-                    helperText="Atleast 200 characters."
+                    helperText="Atleast 400 characters."
                     multiline
                     fullWidth
                     required
@@ -408,7 +566,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                      "& .MuiInputLabel-root": { color: "white" }, 
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -447,10 +605,12 @@ const NewCampaign = () => {
                   {camp.fname &&
                   camp.lname &&
                   camp.age &&
-                  camp.sex &&
+                  camp.gender &&
                   camp.disease &&
+                  camp.state &&
+                  camp.city &&
                   camp.description &&
-                  camp.description.length > 199 &&
+                  camp.description.length > 399 &&
                   camp.amt &&
                   camp.amt > 0 ? (
                     <Button

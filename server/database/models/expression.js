@@ -3,9 +3,11 @@ const mongoose = require('mongoose');
 
 const expressionSchema = new mongoose.Schema({
     title : String,
-    sex: String,
-    age: Number,
-    expression: String,
+    gender : String,
+    age : Number,
+    state : String,
+    city : String,
+    expression : String,
     comments: {
         type : Array,
         default: []

@@ -7,7 +7,7 @@ const UserStateProvider = (props) => {
     id: null,
     name: null,
     age: null,
-    sex: null,
+    gender: null,
     email: null,
   });
 
@@ -26,12 +26,12 @@ const UserStateProvider = (props) => {
         const err = new Error(res.error);
         throw err;
       } else {
-        const { _id, name, sex, age, email } = res.data;
+        const { _id, name, gender, age, email } = res.data;
         setState({
           ...state,
           id: _id,
           name: name,
-          sex: sex,
+          gender: gender,
           age: age,
           email: email,
         });

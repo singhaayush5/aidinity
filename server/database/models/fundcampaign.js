@@ -5,8 +5,10 @@ const fundCampaignSchema = new mongoose.Schema({
     title : String,
     campaignHolder : String,
     age : Number,
-    sex : String,
+    gender : String,
     description: String,
+    state : String,
+    city : String,
     amountRequested: Number,
     amountRaised: {
         type : Number,
