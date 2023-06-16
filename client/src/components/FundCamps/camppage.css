@@ -1,0 +1,46 @@
+@media (max-width: 942px) {
+  .amtbox {
+    width: 60%;
+  }
+  .paydiv{
+    
+    align-items: center;
+  }
+  .payinput{
+    
+    justify-content: center;
+  }
+  .paydiv1{
+    
+    width:90%;
+    margin-left: 5%;
+  }
+  .donatebutton {
+    width: 68%;
+  }
+  .titlearea h3{
+    font-size: 30px;
+  }
+  .underarea h5{
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 942px) {
+  .amtbox {
+    width: 30%;
+  }
+  .paydiv {
+    position: fixed;
+    padding: 3vw 8% 0vw 3vw;
+  }
+  .paydiv1 {
+    width: 84%;
+    padding: 3vw 8% 0vw 3vw;
+  }
+  .donatebutton {
+    width: 33.2%;
+  }
+  
+  
+}

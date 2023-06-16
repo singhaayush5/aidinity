@@ -12,6 +12,7 @@ import NewCampaign from "./components/FundCamps/newcampaign";
 import NewExpression from "./components/AnonExps/newexpression";
 import Expressions from "./components/AnonExps/expressions";
 import ExpressionPage from "./components/AnonExps/expressionpage";
+import CampPage from "./components/FundCamps/camppage";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="login" element={<Login/>}></Route>
         <Route path="register" element={<Register/>}></Route>
         <Route path="fundcampaigns" element={<Fcampaign/>}></Route>
+        <Route path="fundcampaign/:id" element={<CampPage/>}></Route>
         <Route path="newcampaign" element={<NewCampaign/>}></Route>
         <Route path="expressions" element={<Expressions/>}></Route>
         <Route path="expression/:id" element={<ExpressionPage/>}></Route>

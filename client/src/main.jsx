@@ -6,6 +6,15 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import UserStateProvider from "./context/user/userstate";
 
 const theme = createTheme({
+  breakpoints:{
+    values:{
+      xs: 0,
+      sm: 942,
+      md: 1000,
+      lg: 1200,
+      xl: 1536,
+    }
+  },
   components: {
     MuiButton: {
       styleOverrides: {

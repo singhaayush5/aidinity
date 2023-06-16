@@ -46,12 +46,19 @@ const CommentBubble = (props) => {
   return (
     
         isPresent && <>
-        <Card sx={{width: "90%", marginTop:"3%", marginLeft: "5%", backgroundColor: "#222222", padding: "2.5%", borderRadius: 3}}>
+         <Card sx={{width:"100%", height:"4vh", marginTop:"4vh", marginLeft:"-2vw", backgroundColor:"#888888" , zIndex:0}}>
+            <Typography sx={{fontSize:"18px", marginLeft:"1vw", fontWeight:600}} variant="h5">#{props.num}</Typography>
+        </Card>
+        <Card sx={{width: "90%", marginTop:"-5vh", marginLeft: "5%", backgroundColor: "#222222", padding: "2.5%", borderRadius: 3, zIndex:3}}>
+      
+       
             {authUser.state.id && authUser.state.id === props.uid && <IconButton sx={{display: "inline", float: "right"}} aria-label="delete">
   <DeleteIcon onClick={delComment} sx={{display: "inline", float: "right", color:"#555555"}}/></IconButton>}
             <Typography color="#555555" sx={{fontSize:"15px"}} variant="h6">{props.gender}/{props.age}</Typography>
             <Typography color="#999999" sx={{fontSize:"18px"}} variant="h6">{props.comment}</Typography>
+            
         </Card>
+      
     </>
     
     

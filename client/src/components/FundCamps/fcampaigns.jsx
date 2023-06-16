@@ -26,8 +26,10 @@ const FCampaigns = () => {
       <Grid sx={{ padding: "2%", marginTop: "8vh" }} container spacing={2}>
       {
         camps.map((camp) => (
+          camp.active &&
           <CampCard 
             key={camp._id}
+            id={camp._id}
             title={camp.title}
             holder={camp.campaignHolder}
             age={camp.age}

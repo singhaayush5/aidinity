@@ -240,7 +240,7 @@ const ExpressionPage = (props) => {
           )}
           {expression.comments &&
             expression.comments.map((comm,idx) => (
-                <CommentBubble key={idx} age={comm.age} gender={comm.gender} comment={comm.comment} uid={comm.uid} eid={id}/>
+                <CommentBubble key={idx} age={comm.age} gender={comm.gender} comment={comm.comment} uid={comm.uid} eid={id} num={idx+1}/>
             ))
           }
         </div>

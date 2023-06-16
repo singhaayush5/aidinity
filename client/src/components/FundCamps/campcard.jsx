@@ -2,11 +2,22 @@ import { Card, Typography, Grid, Divider, Button, Box } from "@mui/material";
 import Navbar from "../Navbar/navbar";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CampCard = (props) => {
   const [progress, setProgress] = useState(Math.trunc(((props.amtRaised)/props.amtRequested)*100));
+  const navigate = useNavigate();
 
   const desc = props.description.substring(0,500) + "...";
+
+  const openCamp = (eve) => {
+    eve.preventDefault();
+    try{
+      navigate(`/fundcampaign/${props.id}`);
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -65,7 +76,7 @@ const CampCard = (props) => {
               <Button
                 sx={{ fontWeight: 600, borderRadius: 2 }}
                 fullWidth
-                onClick={() => setProgress(progress + 1)}
+                onClick={openCamp}
                 color="secondary"
                 variant="contained"
               >

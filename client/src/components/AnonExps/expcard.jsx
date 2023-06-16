@@ -30,10 +30,10 @@ const CampCard = (props) => {
               borderRadius: 3,
             }}
           >
-            <Typography sx={{ fontWeight: 500 }} variant="h4" color="#fff">
+            <Typography className="titlefont" sx={{ fontWeight: 500 }} variant="h4" color="#fff">
               {props.title}
             </Typography>
-            <Typography variant="h6" color="#797979">
+            <Typography className="underfont" variant="h6" color="#797979">
               {props.age}/{props.gender}&nbsp;-&nbsp;{props.city},&nbsp;{props.state}
             </Typography>
             <Divider color="#000" sx={{ margin: "2% 0%" }} />
