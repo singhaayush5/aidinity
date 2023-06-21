@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import UserContext from "./usercontext";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const UserStateProvider = (props) => {
   const [state, setState] = useState({
@@ -13,14 +14,14 @@ const UserStateProvider = (props) => {
 
   const getCurrUser = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/checkuser", {
+      const res = await axios.get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
+      
 
       if (res.status !== 200) {
         const err = new Error(res.error);

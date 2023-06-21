@@ -26,7 +26,7 @@ exports.createPayment = async (req,res) => {
     }
 }
 
-exports.cardDetails = async (req,res,next) => {
+exports.payDetails = async (req,res,next) => {
     try{
         const rzp = new razorpay({
             key_id: "rzp_test_uZGiUOHM6LJi8D",

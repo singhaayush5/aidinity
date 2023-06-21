@@ -3,7 +3,8 @@
     width: 60%;
   }
   .paydiv{
-    
+    width:100%;
+    margin-bottom: 10vh;
     align-items: center;
   }
   .payinput{
@@ -18,6 +19,9 @@
   .donatebutton {
     width: 68%;
   }
+  .titlearea{
+    margin-top: 5%;
+}
   .titlearea h3{
     font-size: 30px;
   }
@@ -32,9 +36,11 @@
   }
   .paydiv {
     position: fixed;
-    padding: 3vw 8% 0vw 3vw;
+    z-index: 0;
+    padding: 4vw 8% 3vw 3vw;
   }
   .paydiv1 {
+    z-index: -1;
     width: 84%;
     padding: 3vw 8% 0vw 3vw;
   }
@@ -44,3 +50,12 @@
   
   
 }
+
+table, th, td{
+    border: solid #999 2px;
+    border-collapse: collapse;
+}
+ th{
+    background-color: #222;
+    color: #FFFF8F;
+ }

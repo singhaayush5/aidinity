@@ -72,3 +72,13 @@ exports.login = async(req,res) => {
     res.status(403).json({error : err});
   }
 }
+
+exports.logout = async (req,res) => {
+  try{
+    res.clearCookie("jwebtoken");
+    console.log("successfully logged out.");
+    res.status(200).json("successful logout");
+  }catch(err){
+    res.status(500).send(err);
+  }
+}

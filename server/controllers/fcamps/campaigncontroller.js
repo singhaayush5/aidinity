@@ -3,8 +3,21 @@ const Camp = require("../../database/models/fundcampaign");
 
 exports.createNewCampaign = async (req, res) => {
   try {
-    const { name, age, gender, disease, description, amt, state, city } = req.body;
-    if (!name || !age || !gender || !disease || !description || !amt || !state || !city) {
+    const { name, age, gender, disease, description, amt, state, city, accno, accholder, ifsc } =
+      req.body;
+    if (
+      !name ||
+      !age ||
+      !gender ||
+      !disease ||
+      !description ||
+      !amt ||
+      !state ||
+      !city ||
+      !accno ||
+      !accholder ||
+      !ifsc
+    ) {
       return res.status(400).json("some fields empty!");
     }
     if (!req.rootUser) {
@@ -20,6 +33,9 @@ exports.createNewCampaign = async (req, res) => {
       amountRequested: amt,
       state: state,
       city: city,
+      accno: accno,
+      accholder: accholder,
+      ifsc: ifsc,
       active: true,
     });
 
@@ -56,70 +72,89 @@ exports.getAllCampaigns = async (req, res) => {
   }
 };
 
-exports.findCampaign = async (req,res) => {
-  try{
-      const cid = req.params.id;
-      console.log(cid);
+exports.findCampaign = async (req, res) => {
+  try {
+    const cid = req.params.id;
+    console.log(cid);
 
-      const cmp = await Camp.findById(cid);
+    const cmp = await Camp.findById(cid);
 
-      if(!cmp){
-          return res.status(400).json("no camp!");
-      }
-      res.send(cmp);
-  }catch(err){
-      console.log(err);
+    if (!cmp) {
+      return res.status(400).json("no camp!");
+    }
+    res.send(cmp);
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
-exports.confirmPayment = async (req,res) => {
-  try{
-    const {cid, uid, ordId, amount} = req.body;
+exports.finishCampaign = async (req, res) => {
+  try {
+    const cid = req.params.id;
 
-    const user = await User.findByIdAndUpdate(uid, {
-      $push: {donations: {campId: cid, donationId: ordId, amount: amount}},
+    const changeActivity = await Camp.findByIdAndUpdate(cid, {
+      active: false,
     });
 
-    if(!user){
+    if (!changeActivity) {
+      return res.status(400).json("camp not finished!");
+    }
+    res.status(200).json("camp finished!");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.confirmPayment = async (req, res) => {
+  try {
+    const { cid, uid, ordId, amount } = req.body;
+
+    const user = await User.findByIdAndUpdate(uid, {
+      $push: { donations: { campId: cid, donationId: ordId, amount: amount } },
+    });
+
+    if (!user) {
       return res.status(400).json("No such donor!");
     }
     const addDonor = await Camp.findByIdAndUpdate(cid, {
-      $push: {donors: {donorId: uid, donorName: user.name, donationId: ordId, amount: amount}}
+      $push: {
+        donors: {
+          donorId: uid,
+          donorName: user.name,
+          donationId: ordId,
+          amount: amount,
+        },
+      },
     });
 
-    if(!addDonor){
+    if (!addDonor) {
       return res.status(400).json("Couldn't add the donor!");
     }
 
     const increaseDonation = await Camp.findByIdAndUpdate(cid, {
-      $inc : {amountRaised: amount}
+      $inc: { amountRaised: amount },
     });
 
-    if(!increaseDonation){
+    if (!increaseDonation) {
       return res.status(400).json("Couldn't increase donation!");
     }
 
     const donatedCamp = await Camp.findById(cid);
-    if(!donatedCamp){
+    if (!donatedCamp) {
       return res.status(400).json("Couldn't find camp!");
-    }
-    else if(donatedCamp.amountRaised >= donatedCamp.amountRequested){
+    } else if (donatedCamp.amountRaised >= donatedCamp.amountRequested) {
       const changeActivity = await Camp.findByIdAndUpdate(cid, {
         active: false,
       });
-      if(!changeActivity){
-        return res.status(400).json("Couldn't update donation activity status!");
+      if (!changeActivity) {
+        return res
+          .status(400)
+          .json("Couldn't update donation activity status!");
       }
     }
 
-   
-
-   
-
     res.status(200).json("successful donation.");
-
-  }catch(err){
+  } catch (err) {
     console.log(err);
   }
-}
-
+};

@@ -12,7 +12,7 @@
 }
 @media (max-aspect-ratio: 1.13){
     .navlinks{
-        display:none;
+        display:none !important;
     }
     .navlogo{
         height: 5vh;

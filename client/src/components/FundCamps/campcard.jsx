@@ -9,6 +9,7 @@ const CampCard = (props) => {
   const navigate = useNavigate();
 
   const desc = props.description.substring(0,500) + "...";
+  const titl = (props.title.length > 17) ? props.title.substring(0,17) + "..." : props.title;
 
   const openCamp = (eve) => {
     eve.preventDefault();
@@ -29,12 +30,13 @@ const CampCard = (props) => {
               padding: "5%",
               minHeight: 380,
               borderRadius: 3,
+              boxShadow: "10px 10px #000"
             }}
           >
             <Typography sx={{ fontWeight: 500 }} variant="h4" color="#fff">
-              {props.title}
+              {titl}
             </Typography>
-            <Typography variant="h6" color="#797979">
+            <Typography sx={{fontSize:"15px"}} variant="h6" color="#797979">
               {props.holder}&nbsp;({props.age}/{props.gender})&nbsp;-&nbsp;{props.city},&nbsp;{props.state}
             </Typography>
             <Divider color="#000" sx={{ margin: "2% 0%" }} />

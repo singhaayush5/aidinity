@@ -11,11 +11,15 @@ import {
     Divider,
     Button,
   } from "@mui/material";
-  import React, { useState } from "react";
+  import React, { useState, useEffect } from "react";
+  import { useNavigate } from "react-router-dom";
   import Navbar from "../Navbar/navbar";
   import axios from "axios";
+import Footer from "../Footer/footer";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   
   const NewExpression = () => {
+    const navigate = useNavigate();
   
       const states = [
           "Andhra Pradesh",
@@ -77,7 +81,7 @@ import {
   
         const res = await axios
           .post(
-            "http://localhost:8080/newexpression",
+            `${BASE_URL}/newexpression`,
             {
               title: title,
               state: state,
@@ -104,6 +108,23 @@ import {
         console.log(err);
       }
     };
+
+    useEffect(() => {
+      axios
+      .get(`${BASE_URL}/checkuser`, {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        if (res.status != 200) navigate("/login");
+      })
+      .catch((err) => {console.log(err); navigate("/login")});
+
+      document.title = "New Expression | Aidinity";
+    });
   
     return (
       <>
@@ -115,6 +136,7 @@ import {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "8vh",
+            minHeight:"92vh"
           }}
         >
           <Typography
@@ -123,21 +145,28 @@ import {
               fontWeight: 600,
               letterSpacing: 1,
               margin: "1% 0%",
+              textShadow: "4px 4px #000"
             }}
             color="#fff"
             variant="h1"
           >
-            Add a new <span style={{ color: "#8E5BEB", fontWeight:700 }}>anonymous</span> expression.
+            Add a new <span style={{ color: "#FF7F50", fontWeight:700 }}>anonymous</span> expression now
           </Typography>
+          <Typography color="#777777" variant="h6" sx={{ letterSpacing: 1 }}>
+                    Filling in all the  details is  mandatory.
+                  </Typography>
           <Card
             sx={{
               width: "65%",
               backgroundColor: "#222222",
+              marginTop: "1vh",
               padding: 5,
               borderRadius: 7,
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              boxShadow: "10px 10px 0px 0px #000",
+              marginBottom:"5vh"
             }}
           >
             <CardContent>
@@ -361,7 +390,7 @@ import {
                     exp.expression.length > 399 
                          ? (
                       <Button
-                        sx={{ borderRadius: 0, fontWeight: 600 }}
+                        sx={{ borderRadius: 2, fontWeight: 600 }}
                         type="submit"
                         variant="contained"
                         onClick={postExpData}
@@ -373,7 +402,7 @@ import {
                     ) : (
                       <Button
                         sx={{
-                          borderRadius: 0,
+                          borderRadius: 2,
                           fontWeight: 600,
                           "&.Mui-disabled": {
                             background: "#4f4f4f",
@@ -393,6 +422,7 @@ import {
             </CardContent>
           </Card>
         </div>
+        <Footer/>
       </>
     );
   };

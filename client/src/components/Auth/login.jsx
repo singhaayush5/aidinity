@@ -7,27 +7,36 @@ import {
   Typography,
   Alert,
   Collapse,
-  IconButton
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
 } from "@mui/material";
 
-import CloseIcon from "@mui/icons-material/Close"
+import CloseIcon from "@mui/icons-material/Close";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import login from "../../assets/login.jpg";
-
+import logowhite from "../../assets/logowhite.png";
 import axios from "axios";
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/user/usercontext";
 import "./auth.css";
+import Footer from "../Footer/footer";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Login() {
   const navigate = useNavigate();
   const authUser = useContext(UserContext);
 
   const [loginError, setLoginError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    document.title = "Aidinity | Login";
+    document.title = "Login | Aidinity";
   }, []);
 
   const [user, setUser] = useState({
@@ -47,7 +56,7 @@ function Login() {
 
     const res = await axios
       .post(
-        "http://localhost:8080/login",
+        `${BASE_URL}/login`,
         { email: email, password: password },
         {
           withCredentials: true,
@@ -81,6 +90,7 @@ function Login() {
           justifyContent: "center",
           justifyItems: "center",
           alignItems: "center",
+          marginBottom: "3%",
         }}
       >
         <div
@@ -105,7 +115,7 @@ function Login() {
         >
           <div
             style={{
-              backgroundColor: "#000",
+              backgroundColor: "#111",
               height: "100%",
               zIndex: 2,
               display: "flex",
@@ -115,14 +125,14 @@ function Login() {
             }}
           >
             <Typography
-              style={{ fontWeight: 600, color: "#fff", margin: "2% auto" }}
+              style={{ fontWeight: 600, color: "#DECCFF", margin: "2% auto", textShadow:"4px 4px #000" }}
               variant="h3"
             >
               Login
             </Typography>
             <Card
               style={{
-                backgroundColor: "#000",
+                backgroundColor: "#111",
                 width: "80%",
                 display: "flex",
                 flexDirection: "column",
@@ -174,12 +184,12 @@ function Login() {
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      <TextField
+                      <FormControl
                         sx={{
                           "& input": {
                             color: "#fff",
                           },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
+                          "& .MuiInputLabel-root": { color: "white" },
                           "& .MuiOutlinedInput-root": {
                             "& > fieldset": {
                               borderColor: "#fff",
@@ -200,21 +210,46 @@ function Login() {
                             },
                           },
                         }}
+                        variant="outlined"
                         size="small"
                         name="password"
                         value={user.password}
                         onChange={handleChange}
-                        type="password"
-                        label="Password"
-                        variant="outlined"
-                        fullWidth
                         required
-                      />
+                        fullWidth
+                      >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                          Password
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          name="password"
+                          type={showPassword ? "text" : "password"}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                                onMouseDown={(eve) => eve.preventDefault()}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff style={{ color: "#fff" }} />
+                                ) : (
+                                  <Visibility style={{ color: "#fff" }} />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                          label="Password"
+                        />
+                      </FormControl>
                     </Grid>
+
                     <Grid xs={12} item>
                       {user.email && user.password ? (
                         <Button
-                          sx={{ borderRadius: 0, fontWeight: 600 }}
+                          sx={{ borderRadius: 0, fontWeight: 600, color:"#fff" }}
                           type="submit"
                           onClick={postUserData}
                           variant="contained"
@@ -242,28 +277,26 @@ function Login() {
                       )}
                     </Grid>
                     <Grid xs={12} item>
-                      
-                        <Collapse in={loginError}>
-                          <Alert
-                            severity="error"
-                            action={
-                              <IconButton
-                                aria-label="close"
-                                color="inherit"
-                                size="small"
-                                onClick={() => {
-                                  setLoginError(!loginError);
-                                }}
-                              >
-                                <CloseIcon fontSize="inherit" />
-                              </IconButton>
-                            }
-                            sx={{ mb: 2 }}
-                          >
-                            <strong>Invalid credentials</strong> - retry.
-                          </Alert>
-                        </Collapse>
-                      
+                      <Collapse in={loginError}>
+                        <Alert
+                          severity="error"
+                          action={
+                            <IconButton
+                              aria-label="close"
+                              color="inherit"
+                              size="small"
+                              onClick={() => {
+                                setLoginError(!loginError);
+                              }}
+                            >
+                              <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                          }
+                          sx={{ mb: 2 }}
+                        >
+                          <strong>Invalid credentials</strong> - retry.
+                        </Alert>
+                      </Collapse>
                     </Grid>
                     <Grid xs={12} item>
                       <Typography
@@ -277,7 +310,7 @@ function Login() {
                         Don&apos;t have an account?{" "}
                         <span style={{ color: "#fff" }}>
                           <a
-                            style={{ textDecoration: "none", color: "#fff" }}
+                            style={{ textDecoration: "none", color: "#8E5BEB" }}
                             href="/register"
                           >
                             &nbsp;Register➜
@@ -289,9 +322,16 @@ function Login() {
                 </form>
               </CardContent>
             </Card>
+            <img
+              className="bottomlogo"
+              style={{ position: "absolute", bottom: "3vh", right: "5vh" }}
+              src={logowhite}
+              alt=""
+            />
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

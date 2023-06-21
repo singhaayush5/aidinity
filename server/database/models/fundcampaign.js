@@ -9,6 +9,9 @@ const fundCampaignSchema = new mongoose.Schema({
     description: String,
     state : String,
     city : String,
+    accno : String,
+    accholder : String,
+    ifsc : String,
     amountRequested: Number,
     amountRaised: {
         type : Number,

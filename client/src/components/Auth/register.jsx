@@ -9,17 +9,29 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  InputAdornment,
+  OutlinedInput,
+  IconButton
 } from "@mui/material";
 
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 import register from "../../assets/register.jpg";
+import logowhite from "../../assets/logowhite.png"
 import axios from "axios";
 import { useState, useEffect} from "react";
 import "./auth.css";
+import Footer from "../Footer/footer";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Register() {
   useEffect(() => {
-    document.title = "Aidinity | Register"
+    document.title = "Register | Aidinity"
   },[])
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCnfPassword, setShowCnfPassword] = useState(false);
 
   const [user, setUser] = useState({
     name: null,
@@ -42,7 +54,7 @@ function Register() {
 
     const res = await axios
       .post(
-        "http://localhost:8080/register",
+        `${BASE_URL}/register`,
         { name: name, age: age, gender: gender, email: email, password: password },
         { headers: { "Content-Type": "application/json" } }
       )
@@ -64,6 +76,7 @@ function Register() {
           justifyContent: "center",
           justifyItems: "center",
           alignItems: "center",
+          marginBottom:"3%"
         }}
       >
         <div
@@ -89,7 +102,7 @@ function Register() {
           <div
             className="form"
             style={{
-              backgroundColor: "#000",
+              backgroundColor: "#111",
               minHeight: "100vh",
               zIndex: 2,
               display: "flex",
@@ -99,7 +112,7 @@ function Register() {
             }}
           >
             <Typography
-              style={{ fontWeight: 600, color: "#fff", margin: "1% auto" }}
+              style={{ fontWeight: 600, color: "#DECCFF", margin: "1% auto", textShadow:"4px 4px #000" }}
               variant="h3"
               align="Center"
             >
@@ -107,7 +120,7 @@ function Register() {
             </Typography>
             <Card
               style={{
-                backgroundColor: "#000",
+                backgroundColor: "#111",
                 width: "80%",
                 display: "flex",
                 flexDirection: "column",
@@ -298,8 +311,10 @@ function Register() {
                         required
                       />
                     </Grid>
+                    
+
                     <Grid xs={12} item>
-                      <TextField
+                      <FormControl
                         sx={{
                           "& input": {
                             color: "#fff",
@@ -325,19 +340,43 @@ function Register() {
                             },
                           },
                         }}
+                        variant="outlined"
                         size="small"
                         name="password"
                         value={user.password}
                         onChange={handleChange}
-                        type="password"
-                        label="Password"
-                        variant="outlined"
-                        fullWidth
                         required
-                      />
+                        fullWidth
+                      >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                          Password
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          name="password"
+                          type={showPassword ? "text" : "password"}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                                onMouseDown={(eve) => eve.preventDefault()}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff style={{ color: "#fff" }} />
+                                ) : (
+                                  <Visibility style={{ color: "#fff" }} />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                          label="Password"
+                        />
+                      </FormControl>
                     </Grid>
                     <Grid xs={12} item>
-                      <TextField
+                      <FormControl
                         sx={{
                           "& input": {
                             color: "#fff",
@@ -363,16 +402,40 @@ function Register() {
                             },
                           },
                         }}
+                        variant="outlined"
                         size="small"
                         name="cnfpassword"
                         value={user.cnfpassword}
                         onChange={handleChange}
-                        type="password"
-                        label="Confirm password"
-                        variant="outlined"
-                        fullWidth
                         required
-                      />
+                        fullWidth
+                      >
+                        <InputLabel htmlFor="outlined-adornment-password">
+                          Confirm Password
+                        </InputLabel>
+                        <OutlinedInput
+                          id="outlined-adornment-password"
+                          name="cnfpassword"
+                          type={showCnfPassword ? "text" : "password"}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={() => setShowCnfPassword(!showCnfPassword)}
+                                onMouseDown={(eve) => eve.preventDefault()}
+                                edge="end"
+                              >
+                                {showCnfPassword ? (
+                                  <VisibilityOff style={{ color: "#fff" }} />
+                                ) : (
+                                  <Visibility style={{ color: "#fff" }} />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                          label="Confirm Password"
+                        />
+                      </FormControl>
                     </Grid>
                     <Grid xs={12} item>
                       {user.name &&
@@ -382,7 +445,7 @@ function Register() {
                       user.password &&
                       user.password === user.cnfpassword ? (
                         <Button
-                          sx={{ borderRadius: 0, fontWeight: 600 }}
+                          sx={{ borderRadius: 0, fontWeight: 600, color:"#fff" }}
                           type="submit"
                           onClick={postUserData}
                           variant="contained"
@@ -421,7 +484,7 @@ function Register() {
                         Already have an account?{" "}
                         <span style={{ color: "#fff" }}>
                           <a
-                            style={{ textDecoration: "none", color: "#fff" }}
+                            style={{ textDecoration: "none", color: "#8E5BEB" }}
                             href="/login"
                           >
                             &nbsp;Login➜
@@ -433,9 +496,11 @@ function Register() {
                 </form>
               </CardContent>
             </Card>
+            <img className="bottomlogo" style={{position: "absolute", bottom: "3vh", right: "5vh"}} src={logowhite} alt=""/>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

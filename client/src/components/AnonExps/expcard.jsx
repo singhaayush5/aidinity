@@ -1,14 +1,14 @@
 import { Card, Typography, Grid, Divider, Button, Box } from "@mui/material";
-import Navbar from "../Navbar/navbar";
-import LinearProgress from "@mui/material/LinearProgress";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const CampCard = (props) => {
+  
   const navigate = useNavigate();
   console.log(props);
 
   const expr = props.expression.substring(0,500) + "...";
+  const titl = (props.title.length > 17) ? props.title.substring(0,17) + "..." : props.title;
 
   const openExpression = async (eve) => {
     try{
@@ -17,6 +17,8 @@ const CampCard = (props) => {
         console.log(err);
     }
   }
+
+
 
   return (
     <>
@@ -28,10 +30,11 @@ const CampCard = (props) => {
               padding: "5%",
               minHeight: 380,
               borderRadius: 3,
+              boxShadow: "10px 10px #000"
             }}
           >
             <Typography className="titlefont" sx={{ fontWeight: 500 }} variant="h4" color="#fff">
-              {props.title}
+              {titl}
             </Typography>
             <Typography className="underfont" variant="h6" color="#797979">
               {props.age}/{props.gender}&nbsp;-&nbsp;{props.city},&nbsp;{props.state}

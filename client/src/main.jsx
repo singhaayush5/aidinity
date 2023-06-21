@@ -35,6 +35,9 @@ const theme = createTheme({
     tertiary: {
       main: "#dadada",
     },
+    dashboard:{
+      main: "#CF9FFF",
+    }
   },
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),

@@ -1,12 +1,16 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import helpinghands from "../../assets/helpinghands.png";
 import "./home.css";
 import Navbar from "../Navbar/navbar";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../Footer/footer";
+import homelogo from "../../assets/homelogo.png"
+import UserContext from "../../context/user/usercontext";
 
 const Home = () => {
+  const authUser = useContext(UserContext);
   const navigate = useNavigate();
   // const callHomePage = async () => {
   //   try {
@@ -48,22 +52,23 @@ const Home = () => {
         }}
       >
         <img
-          style={{ width: "100%", opacity: "0.5" }}
+          style={{ width: "100%", opacity: "0.5", marginTop:"8vh"}}
           src={helpinghands}
           alt=""
         ></img>
       </div>
+      <div style={{display: "flex", flexDirection:"column", justifyContent:"center", minHeight: "100vh",}}>
       <div
         className="topHead"
         style={{
-          minHeight: "100vh",
+          
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           zIndex: -1,
         }}
       >
-        <Typography
+        {/* <Typography
           sx={{
             zIndex: -1,
             textAlign: "center",
@@ -74,8 +79,30 @@ const Home = () => {
           }}
           variant="h1"
         >
-          Welcome!
-        </Typography>
+          Aidinity
+        </Typography> */}
+
+        <img className="homelogo" style={{height: "16vw"}} src={homelogo}>
+        </img>
+        
+
+      </div>
+      <div
+        className="topHead"
+        style={{
+          
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: -1,
+        }}
+      >
+      {
+        authUser.state.id ? <Button className="homebuttons" sx={{width: "25%", marginTop:"5vh", background:"transparent", boxShadow:"0 0px 0px 0px #000", borderRadius:5}} variant="outlined" size="large">explore 🡣</Button>:
+      <Button className="homebuttons" sx={{ marginTop:"5vh",  background:"transparent", boxShadow:"0 0px 0px 0px #000", borderRadius:5}} variant="outlined" size="large">login to continue 🡢</Button>
+      }
+      
+      </div>
       </div>
       <div
         className="menuHead"
@@ -137,6 +164,7 @@ const Home = () => {
           zIndex: 2,
           backgroundColor: "#434242",
           minHeight: "100vh",
+          marginBottom: "-1.5%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -155,6 +183,7 @@ const Home = () => {
           Express yourself.
         </Typography>
       </div>
+      <Footer/>
     </>
   );
 };

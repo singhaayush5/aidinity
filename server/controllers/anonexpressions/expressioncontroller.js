@@ -27,7 +27,7 @@ exports.newExpression = async (req,res) => {
         }
 
         const holder = await User.findByIdAndUpdate(req.rootUser._id, {
-            $push: { expressions: { expid: saved._id } },
+            $push: { expressions: { expid: (saved._id).toString() } },
         });
 
         if (!holder) {
@@ -125,6 +125,39 @@ exports.findExpression = async (req,res) => {
             return res.status(400).json("no exp!");
         }
         res.send(exp);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+exports.deleteExpression = async (req,res) => {
+    try{
+        if(!req.rootUser) return res.status(401).json("you are unauthorized!");
+
+        const eid = req.params.id;
+
+        const deletedUserExp = await User.findByIdAndUpdate(
+            req.rootUser._id,
+            {
+              $pullAll: {
+                expressions: [
+                  { expid: eid },
+                ],
+              },
+            }
+          );
+
+          if(!deletedUserExp) return res.status(400).json("could not delete exp!");
+
+          const deleted = await Expression.findByIdAndDelete(eid);
+
+          if(!deleted) return res.status(400).json("could not delete exp!");
+
+          res.status(200).json("deleted the expression!");
+
+
+        
+
     }catch(err){
         console.log(err);
     }

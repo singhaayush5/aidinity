@@ -11,51 +11,55 @@ import {
   Divider,
   Button,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/navbar";
 import axios from "axios";
+import Footer from "../Footer/footer";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const NewCampaign = () => {
+  
+  const navigate = useNavigate();
 
-    const states = [
-        "Andhra Pradesh",
-        "Arunachal Pradesh",
-        "Assam",
-        "Bihar",
-        "Chhattisgarh",
-        "Goa",
-        "Gujarat",
-        "Haryana",
-        "Himachal Pradesh",
-        "Jharkhand",
-        "Karnataka",
-        "Kerala",
-        "Madhya Pradesh",
-        "Maharashtra",
-        "Manipur",
-        "Meghalaya",
-        "Mizoram",
-        "Nagaland",
-        "Odisha",
-        "Punjab",
-        "Rajasthan",
-        "Sikkim",
-        "Tamil Nadu",
-        "Telangana",
-        "Tripura",
-        "Uttar Pradesh",
-        "Uttarakhand",
-        "West Bengal",
-        "AN Island",
-        "Chandigarh",
-        "D&NH/D&D",
-        "Delhi",
-        "Ladakh",
-        "Lakshadweep",
-        "J&K",
-        "Puducherry"
-
-    ]
+  const states = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "AN Island",
+    "Chandigarh",
+    "D&NH/D&D",
+    "Delhi",
+    "Ladakh",
+    "Lakshadweep",
+    "J&K",
+    "Puducherry",
+  ];
 
   const [camp, setCamp] = useState({
     fname: null,
@@ -66,7 +70,10 @@ const NewCampaign = () => {
     description: null,
     amt: null,
     state: null,
-    city: null
+    city: null,
+    accno: null,
+    accholder: null,
+    ifsc: null
   });
 
   const handleChange = (eve) => {
@@ -77,13 +84,26 @@ const NewCampaign = () => {
   const postCampData = async (eve) => {
     eve.preventDefault();
     try {
-      const { fname, lname, age, gender, disease, description, amt, state, city } = camp;
+      const {
+        fname,
+        lname,
+        age,
+        gender,
+        disease,
+        description,
+        amt,
+        state,
+        city,
+        accno,
+        accholder,
+        ifsc
+      } = camp;
 
       const fullname = fname + " " + lname;
 
       const res = await axios
         .post(
-          "http://localhost:8080/newcampaign",
+          `${BASE_URL}/newcampaign`,
           {
             name: fullname,
             age: age,
@@ -92,7 +112,10 @@ const NewCampaign = () => {
             description: description,
             amt: amt,
             state: state,
-            city: city
+            city: city,
+            accno: accno,
+            accholder: accholder,
+            ifsc: ifsc
           },
           {
             withCredentials: true,
@@ -115,6 +138,23 @@ const NewCampaign = () => {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/checkuser`, {
+        withCredentials: true,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        if (res.status != 200) navigate("/login");
+      })
+      .catch((err) => {console.log(err); navigate("/login")});
+
+    document.title = "New Campaign | Aidinity";
+  });
+
   return (
     <>
       <Navbar />
@@ -133,12 +173,16 @@ const NewCampaign = () => {
             fontWeight: 600,
             letterSpacing: 1,
             margin: "1% 0%",
+            textShadow: "4px 4px #000",
           }}
           color="#fff"
           variant="h1"
         >
-          <span style={{ color: "#8E5BEB", fontWeight:700 }}>Start</span> a new fundraiser
-          campaign.
+          <span style={{ color: "#0BDA51", fontWeight: 700 }}>Start</span> a new
+          fundraiser campaign.
+        </Typography>
+        <Typography color="#777777" variant="h6" sx={{ letterSpacing: 1 }}>
+          Filling in all the details is mandatory.
         </Typography>
         <Card
           sx={{
@@ -149,6 +193,9 @@ const NewCampaign = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            marginBottom: "4vh",
+            marginTop: "3vh",
+            boxShadow: "10px 10px 0px 0px #000",
           }}
         >
           <CardContent>
@@ -168,7 +215,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -206,7 +253,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -411,10 +458,11 @@ const NewCampaign = () => {
                       labelId="select-state-label"
                       label="state"
                     >
-                    {
-                        states.map((state,idx) => <MenuItem key={idx+1} value={state}>{state}</MenuItem>)
-                    }
-                      
+                      {states.map((state, idx) => (
+                        <MenuItem key={idx + 1} value={state}>
+                          {state}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </Grid>
@@ -424,7 +472,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -473,7 +521,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -511,7 +559,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -566,7 +614,7 @@ const NewCampaign = () => {
                       "& input": {
                         color: "#fff",
                       },
-                      "& .MuiInputLabel-root": { color: "white" }, 
+                      "& .MuiInputLabel-root": { color: "white" },
                       "& .MuiOutlinedInput-root": {
                         "& > fieldset": {
                           borderColor: "#fff",
@@ -602,6 +650,123 @@ const NewCampaign = () => {
                   />
                 </Grid>
                 <Grid xs={12} sm={12} item>
+                  <TextField
+                    sx={{
+                      "& input": {
+                        color: "#fff",
+                      },
+                      "& .MuiInputLabel-root": { color: "white" },
+                      "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      "& .MuiOutlinedInput-root:hover": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                          color: "white",
+                        },
+                      },
+                      "& .MuiOutlinedInput-root.Mui-focused": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      //   marginLeft:1
+                    }}
+                    inputMode="dark"
+                    size="small"
+                    value={camp.accno}
+                    onChange={handleChange}
+                    name="accno"
+                    label="Bank Account no. (for disbursing collections)"
+                    variant="filled"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <TextField
+                    sx={{
+                      "& input": {
+                        color: "#fff",
+                      },
+                      "& .MuiInputLabel-root": { color: "white" },
+                      "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      "& .MuiOutlinedInput-root:hover": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                          color: "white",
+                        },
+                      },
+                      "& .MuiOutlinedInput-root.Mui-focused": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      //   marginLeft:1
+                    }}
+                    inputMode="dark"
+                    size="small"
+                    value={camp.accholder}
+                    onChange={handleChange}
+                    name="accholder"
+                    label="Account holder"
+                    variant="filled"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <TextField
+                    sx={{
+                      "& input": {
+                        color: "#fff",
+                      },
+                      "& .MuiInputLabel-root": { color: "white" },
+                      "& .MuiOutlinedInput-root": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      "& .MuiOutlinedInput-root:hover": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                          color: "white",
+                        },
+                      },
+                      "& .MuiOutlinedInput-root.Mui-focused": {
+                        "& > fieldset": {
+                          borderColor: "#fff",
+                          borderRadius: 0,
+                        },
+                      },
+                      //   marginLeft:1
+                    }}
+                    inputMode="dark"
+                    size="small"
+                    value={camp.ifsc}
+                    onChange={handleChange}
+                    name="ifsc"
+                    label="Branch IFSC Code"
+                    variant="filled"
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid xs={12} sm={12} item>
                   {camp.fname &&
                   camp.lname &&
                   camp.age &&
@@ -612,9 +777,15 @@ const NewCampaign = () => {
                   camp.description &&
                   camp.description.length > 399 &&
                   camp.amt &&
-                  camp.amt > 0 ? (
+                  camp.amt > 0 &&
+                  camp.accno &&
+                  camp.accno.length > 0 &&
+                  camp.accholder &&
+                  camp.accholder.length > 0 &&
+                  camp.ifsc &&
+                  camp.ifsc.length === 11 ? (
                     <Button
-                      sx={{ borderRadius: 0, fontWeight: 600 }}
+                      sx={{ borderRadius: 2, fontWeight: 600 }}
                       type="submit"
                       variant="contained"
                       onClick={postCampData}
@@ -626,7 +797,7 @@ const NewCampaign = () => {
                   ) : (
                     <Button
                       sx={{
-                        borderRadius: 0,
+                        borderRadius: 2,
                         fontWeight: 600,
                         "&.Mui-disabled": {
                           background: "#4f4f4f",
@@ -646,6 +817,7 @@ const NewCampaign = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </>
   );
 };
