@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3005;
 const dbConnection = require("./database/connect");
 
 const app = express();
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true, origin:"https://aidinity.netlify.app" }));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
