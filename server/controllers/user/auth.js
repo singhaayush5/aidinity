@@ -56,7 +56,8 @@ exports.login = async (req, res) => {
 
       res.cookie("jwebtoken", token, {
         expires: new Date(Date.now() + 2592000000),
-        httpOnly: false,
+        httpOnly: true,
+        secure: true,
       });
       if (!match) {
         res.status(410).json({ msg: "invalid" });
