@@ -1,35 +1,33 @@
 @media (max-width: 942px) {
-    .foothero{
-        padding: 5vh 8vw 2vh 8vw;
-        min-height: 18vh;
-        width: 84%;
-    }
-    .navlogo{
-        height: 4vw;
-    }
-    .dividr{
-        width: 84vw;
-    }
-    .footlink h6{
-        font-size: 2vw;
-    }
+  .foothero {
+    padding: 5vh 8vw 2vh 8vw;
+    min-height: 18vh;
+    width: 84%;
+  }
+  .navlogo {
+    height: 4vw;
+  }
+  .dividr {
+    width: 84vw;
+  }
+  .footlink h6 {
+    font-size: 2vw;
+  }
 }
 
-
 @media (min-width: 942px) {
-    .foothero{
-        padding: 5vh 10vw 2vh 10vw;
-        min-height: 20vh;
-        width: 80%;
-    }
-    .navlogo{
-        height: 2vw;
-    }
-    .dividr{
-        width: 80vw;
-    }
-    .footlink h6{
-        font-size: 1vw;
-    }
-
+  .foothero {
+    padding: 5vh 10vw 2vh 10vw;
+    min-height: 20vh;
+    width: 80%;
+  }
+  .navlogo {
+    height: 2vw;
+  }
+  .dividr {
+    width: 80vw;
+  }
+  .footlink h6 {
+    font-size: 1vw;
+  }
 }

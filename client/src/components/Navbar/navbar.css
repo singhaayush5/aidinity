@@ -1,34 +1,46 @@
-@media (min-aspect-ratio: 1.13){
-    .micon path{
-        display: none;
-    }
-    .micon{
-        display: none !important;
-    }
+@media (min-aspect-ratio: 1.13) {
+  .micon path {
+    display: none;
+  }
+  .micon {
+    display: none !important;
+  }
 
-    .navlogo{
-        height: 7vh;
-    }
+  .navlogo {
+    height: 7vh;
+  }
 }
-@media (max-aspect-ratio: 1.13){
-    .navlinks{
-        display:none !important;
-    }
-    .navlogo{
-        height: 5vh;
-    }
-    
+@media (max-aspect-ratio: 1.13) {
+  .navlinks {
+    display: none !important;
+  }
+  .navlogo {
+    height: 5vh;
+  }
 }
 
 .slide-left {
-    animation: .3s slide-left;
+  animation: 0.3s slide-left;
+}
+.slide-right {
+  animation: 0.3s slide-right;
+  animation-fill-mode: forwards;
 }
 @keyframes slide-left {
-    0% {
-        transform: translateX(30vh);
-    }
-    
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(30vh);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    transform: translateX(-30vh);
+  }
+
+  100% {
+    transform: translateX(0vh);
+  }
 }

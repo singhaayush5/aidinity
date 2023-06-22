@@ -2,30 +2,27 @@
   .amtbox {
     width: 60%;
   }
-  .paydiv{
-    width:100%;
+  .paydiv {
+    width: 100%;
     margin-bottom: 10vh;
     align-items: center;
   }
-  .payinput{
-    
+  .payinput {
     justify-content: center;
   }
-  .paydiv1{
-    
-    width:90%;
-    margin-left: 5%;
+  .paydiv1 {
+    width: 90%;
   }
   .donatebutton {
     width: 68%;
   }
-  .titlearea{
+  .titlearea {
     margin-top: 5%;
-}
-  .titlearea h3{
+  }
+  .titlearea h3 {
     font-size: 30px;
   }
-  .underarea h5{
+  .underarea h5 {
     font-size: 15px;
   }
 }
@@ -47,15 +44,15 @@
   .donatebutton {
     width: 33.2%;
   }
-  
-  
 }
 
-table, th, td{
-    border: solid #999 2px;
-    border-collapse: collapse;
+table,
+th,
+td {
+  border: solid #999 2px;
+  border-collapse: collapse;
 }
- th{
-    background-color: #222;
-    color: #FFFF8F;
- }
+th {
+  background-color: #222;
+  color: #ffff8f;
+}

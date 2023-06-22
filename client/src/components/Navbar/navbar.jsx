@@ -13,7 +13,7 @@ const Navbar = () => {
   const authUser = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [showNav, setNav] = useState(false);
+  const [showNav, setNav] = useState(0);
 
   const logout = async () => {
     axios
@@ -24,7 +24,9 @@ const Navbar = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {console.log(res); navigate(0);})
+      .then((res) => {
+        navigate(0);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -61,105 +63,130 @@ const Navbar = () => {
           }}
         >
           {authUser.state.id ? (
-            <Button className="navlinks" onClick={logout} sx={{background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
+            <Button
+              className="navlinks"
+              onClick={logout}
+              sx={{ background: "transparent", boxShadow: "0 0 0 0 #fff" }}
+            >
+              <Typography
+                className="navlinks"
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                }}
+                variant="h5"
+              >
+                LOGOUT
+              </Typography>
+            </Button>
+          ) : (
+            <Button
+              className="navlinks"
+              component={Link}
+              to="/login"
+              sx={{ background: "transparent", boxShadow: "0 0 0 0 #fff" }}
+            >
+              <Typography
+                className="navlinks"
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                }}
+                variant="h5"
+              >
+                LOGIN/REGISTER
+              </Typography>
+            </Button>
+          )}
+          {authUser.state.id && (
+            <Button
+              className="navlinks"
+              component={Link}
+              to="/user/dashboard"
+              sx={{
+                marginRight: "2%",
+                background: "transparent",
+                boxShadow: "0 0 0 0 #fff",
+              }}
+            >
+              <Typography
+                className="navlinks"
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                }}
+                variant="h5"
+              >
+                DASHBOARD
+              </Typography>
+            </Button>
+          )}
+
+          <Button
+            className="navlinks"
+            component={Link}
+            to="/expressions"
+            sx={{
+              marginRight: "2%",
+              background: "transparent",
+              boxShadow: "0 0 0 0 #fff",
+            }}
+          >
             <Typography
               className="navlinks"
               style={{
                 color: "#fff",
                 textAlign: "right",
-                // marginRight: "4%",
+
                 fontSize: "2vh",
                 letterSpacing: 3,
                 fontWeight: 500,
               }}
               variant="h5"
-              
             >
-              
-                LOGOUT
-                
-             
+              EXPRESSIONS
             </Typography>
-            </Button>
-          ) : (
-            <Button className="navlinks" component={Link} to="/login" sx={{background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
+          </Button>
+          <Button
+            className="navlinks"
+            component={Link}
+            to="/fundcampaigns"
+            sx={{
+              marginRight: "2%",
+              background: "transparent",
+              boxShadow: "0 0 0 0 #fff",
+            }}
+          >
             <Typography
-             className="navlinks"
+              className="navlinks"
               style={{
                 color: "#fff",
                 textAlign: "right",
-                // marginRight: "4%",
+
                 fontSize: "2vh",
                 letterSpacing: 3,
                 fontWeight: 500,
               }}
               variant="h5"
             >
-              
-                LOGIN/REGISTER
-              
-            </Typography>
-            </Button>
-          )}
-          <Button className="navlinks" component={Link} to="/user/dashboard"  sx={{ marginRight: "2%", background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
-          <Typography
-            className="navlinks"
-            style={{
-              color: "#fff",
-              textAlign: "right",
-            
-              fontSize: "2vh",
-              letterSpacing: 3,
-              fontWeight: 500,
-            }}
-            variant="h5"
-          >
-            
-              DASHBOARD
-            
-          </Typography>
-          </Button>
-          <Button className="navlinks" component={Link} to="/expressions"  sx={{marginRight: "2%", background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
-          <Typography
-           className="navlinks"
-            style={{
-              color: "#fff",
-              textAlign: "right",
-           
-              fontSize: "2vh",
-              letterSpacing: 3,
-              fontWeight: 500,
-            }}
-            variant="h5"
-          >
-            
-              EXPRESSIONS
-            
-          </Typography>
-          </Button>
-          <Button className="navlinks" component={Link} to="/fundcampaigns"  sx={{marginRight: "2%", background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
-          <Typography
-           className="navlinks"
-            style={{
-              color: "#fff",
-              textAlign: "right",
-            
-              fontSize: "2vh",
-              letterSpacing: 3,
-              fontWeight: 500,
-            }}
-            variant="h5"
-          >
-            
               DONATE
-            
-          </Typography>
+            </Typography>
           </Button>
 
-          {showNav ? (
+          {showNav & 1 ? (
             <CloseIcon
               onClick={() => {
-                setNav(!showNav);
+                setNav(showNav + 1);
               }}
               className="micon"
               style={{ color: "#fff" }}
@@ -167,7 +194,7 @@ const Navbar = () => {
           ) : (
             <MenuIcon
               onClick={() => {
-                setNav(!showNav);
+                setNav(showNav + 1);
               }}
               className="micon"
               style={{ color: "#fff" }}
@@ -175,7 +202,8 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      {showNav && (
+
+      {showNav !== 0 && showNav & 1 ? (
         <div
           className="micon slide-left"
           style={{
@@ -192,24 +220,26 @@ const Navbar = () => {
             alignItems: "center",
           }}
         >
-          <Typography
-            style={{
-              color: "#fff",
-              textAlign: "right",
-              fontSize: "2vh",
-              letterSpacing: 3,
-              fontWeight: 500,
-              margin: "3% auto",
-            }}
-            variant="h5"
-          >
-            <a
-              href="/user/dashboard"
-              style={{ textDecoration: "none", color: "#fff" }}
+          {authUser.state.id && (
+            <Typography
+              style={{
+                color: "#fff",
+                textAlign: "right",
+                fontSize: "2vh",
+                letterSpacing: 3,
+                fontWeight: 500,
+                margin: "3% auto",
+              }}
+              variant="h5"
             >
-              DASHBOARD
-            </a>
-          </Typography>
+              <a
+                href="/user/dashboard"
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                DASHBOARD
+              </a>
+            </Typography>
+          )}
 
           <Typography
             style={{
@@ -249,27 +279,23 @@ const Navbar = () => {
           </Typography>
 
           {authUser.state.id ? (
-            <Button onClick={logout} sx={{background:"transparent", boxShadow: "0 0 0 0 #fff"}}>
-            <Typography
-              style={{
-                color: "#fff",
-                textAlign: "right",
-                fontSize: "2vh",
-                letterSpacing: 3,
-                fontWeight: 500,
-                margin: "3% auto",
-              }}
-              variant="h5"
-              
+            <Button
+              onClick={logout}
+              sx={{ background: "transparent", boxShadow: "0 0 0 0 #fff" }}
             >
-            
-
-                
+              <Typography
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                  margin: "3% auto",
+                }}
+                variant="h5"
+              >
                 LOGOUT
-               
-
-                
-            </Typography>
+              </Typography>
             </Button>
           ) : (
             <Typography
@@ -292,6 +318,123 @@ const Navbar = () => {
             </Typography>
           )}
         </div>
+      ) : (
+        showNav !== 0 && (
+          <div
+            className="micon slide-right"
+            style={{
+              backgroundColor: "#000",
+              zIndex: 7,
+              marginTop: "8vh",
+              position: "fixed",
+              right: "-30vh",
+              top: 0,
+              width: "30vh",
+              height: "92vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {authUser.state.id && (
+              <Typography
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                  margin: "3% auto",
+                }}
+                variant="h5"
+              >
+                <a
+                  href="/user/dashboard"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  DASHBOARD
+                </a>
+              </Typography>
+            )}
+
+            <Typography
+              style={{
+                color: "#fff",
+                textAlign: "right",
+                fontSize: "2vh",
+                letterSpacing: 3,
+                fontWeight: 500,
+                margin: "3% auto",
+              }}
+              variant="h5"
+            >
+              <a
+                href="/fundcampaigns"
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                DONATE
+              </a>
+            </Typography>
+            <Typography
+              style={{
+                color: "#fff",
+                textAlign: "right",
+                fontSize: "2vh",
+                letterSpacing: 3,
+                fontWeight: 500,
+                margin: "3% auto",
+              }}
+              variant="h5"
+            >
+              <a
+                href="/expressions"
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                EXPRESSIONS
+              </a>
+            </Typography>
+
+            {authUser.state.id ? (
+              <Button
+                onClick={logout}
+                sx={{ background: "transparent", boxShadow: "0 0 0 0 #fff" }}
+              >
+                <Typography
+                  style={{
+                    color: "#fff",
+                    textAlign: "right",
+                    fontSize: "2vh",
+                    letterSpacing: 3,
+                    fontWeight: 500,
+                    margin: "3% auto",
+                  }}
+                  variant="h5"
+                >
+                  LOGOUT
+                </Typography>
+              </Button>
+            ) : (
+              <Typography
+                style={{
+                  color: "#fff",
+                  textAlign: "right",
+                  fontSize: "2vh",
+                  letterSpacing: 3,
+                  fontWeight: 500,
+                  margin: "3% auto",
+                }}
+                variant="h5"
+              >
+                <a
+                  href="/login"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  LOGIN/REGISTER
+                </a>
+              </Typography>
+            )}
+          </div>
+        )
       )}
     </>
   );

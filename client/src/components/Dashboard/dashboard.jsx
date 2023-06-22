@@ -4,6 +4,7 @@ import { Typography, Grid, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar/navbar";
 import logowhite from "../../assets/logowhite.png";
+import { motion } from "framer-motion";
 import "./dashboard.css";
 import Footer from "../Footer/footer";
 
@@ -70,126 +71,206 @@ const Dashboard = () => {
                   >
                     Select an option 🡣
                   </Typography>
-                  <Button
-                    className="donatebutton"
-                    sx={{
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      marginTop: "1%",
-                      color: "#fff",
+                  <motion.div
+                    className="buttondiv"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
-                    type="submit"
-                    component={Link}
-                    to="/user"
-                    variant="contained"
-                    color="dashboard"
-                  >
-                    My Profile➜
-                  </Button>
-                  <Button
-                    className="donatebutton"
-                    sx={{
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      marginTop: "1%",
-                      color: "#fff",
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0, 0.71, 0.2, 1.01],
                     }}
-                    type="submit"
-                    component={Link}
-                    to="/user/expressions"
-                    variant="contained"
-                    color="dashboard"
                   >
-                    My Expressions➜
-                  </Button>
-                  <Button
-                    className="donatebutton"
-                    sx={{
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      marginTop: "1%",
-                      color: "#fff",
+                    <Button
+                      className="donatebutton"
+                      sx={{
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        marginTop: "2vh",
+                        color: "#fff",
+                        width: "100%",
+                      }}
+                      type="submit"
+                      component={Link}
+                      to="/user"
+                      variant="contained"
+                      color="dashboard"
+                    >
+                      My Profile➜
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    className="buttondiv"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
-                    type="submit"
-                    component={Link}
-                    to="/user/fundcampaigns"
-                    variant="contained"
-                    color="dashboard"
-                  >
-                    My Fundraiser Campaigns➜
-                  </Button>
-                  <Button
-                    className="donatebutton"
-                    sx={{
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      marginTop: "1%",
-                      color: "#fff",
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0, 0.71, 0.2, 1.01],
                     }}
-                    type="submit"
-                    component={Link}
-                    to="/user/donations"
-                    variant="contained"
-                    color="dashboard"
                   >
-                    My Donations➜
-                  </Button>
+                    <Button
+                      className="donatebutton"
+                      sx={{
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        marginTop: "2vh",
+                        color: "#fff",
+                        width: "100%",
+                      }}
+                      type="submit"
+                      component={Link}
+                      to="/user/expressions"
+                      variant="contained"
+                      color="dashboard"
+                    >
+                      My Expressions➜
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    className="buttondiv"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                  >
+                    <Button
+                      className="donatebutton"
+                      sx={{
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        marginTop: "2vh",
+                        color: "#fff",
+                        width: "100%",
+                      }}
+                      type="submit"
+                      component={Link}
+                      to="/user/fundcampaigns"
+                      variant="contained"
+                      color="dashboard"
+                    >
+                      My Fundraiser Campaigns➜
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    className="buttondiv"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                  >
+                    <Button
+                      className="donatebutton"
+                      sx={{
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        marginTop: "2vh",
+                        color: "#fff",
+                        width: "100%",
+                      }}
+                      type="submit"
+                      component={Link}
+                      to="/user/donations"
+                      variant="contained"
+                      color="dashboard"
+                    >
+                      My Donations➜
+                    </Button>
+                  </motion.div>
                 </div>
               </>
             ) : (
               <>
-                <div
+                <motion.div
+                  className="buttondiv"
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "-3vh",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0, 0.71, 0.2, 1.01],
                   }}
                 >
-                  <Typography
-                    sx={{ fontWeight: 500, marginTop: "3%" }}
-                    color="#bbb"
-                    variant="h6"
-                  >
-                    To continue, please
-                  </Typography>{" "}
-                  <Button
-                    className="donatebutton"
-                    sx={{ borderRadius: 2, fontWeight: 600, marginTop: "1%" }}
-                    type="submit"
-                    component={Link}
-                    to="/login"
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Login➜
-                  </Button>
-                  <Typography
-                    sx={{ fontWeight: 500, marginTop: "1%" }}
-                    color="#bbb"
-                    variant="h6"
-                  >
-                    OR
-                  </Typography>
-                  <Button
-                    className="donatebutton"
-                    sx={{
-                      borderRadius: 2,
-                      fontWeight: 600,
-                      marginTop: "1%",
-                      background: "#fff",
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: "-3vh",
                     }}
-                    type="submit"
-                    component={Link}
-                    to="/register"
-                    variant="contained"
-                    color="primary"
                   >
-                    Register➜
-                  </Button>
-                </div>
+                    <Typography
+                      sx={{ fontWeight: 500, marginTop: "3%" }}
+                      color="#bbb"
+                      variant="h6"
+                    >
+                      To continue, please
+                    </Typography>{" "}
+                    <Button
+                      className="donatebutton"
+                      sx={{ borderRadius: 2, fontWeight: 600, marginTop: "1%" }}
+                      type="submit"
+                      component={Link}
+                      to="/login"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Login➜
+                    </Button>
+                    <Typography
+                      sx={{ fontWeight: 500, marginTop: "1%" }}
+                      color="#bbb"
+                      variant="h6"
+                    >
+                      OR
+                    </Typography>
+                    <Button
+                      className="donatebutton"
+                      sx={{
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        marginTop: "1%",
+                        background: "#fff",
+                      }}
+                      type="submit"
+                      component={Link}
+                      to="/register"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Register➜
+                    </Button>
+                  </div>
+                </motion.div>
               </>
             )}
           </Box>
@@ -201,7 +282,6 @@ const Dashboard = () => {
         src={logowhite}
         alt=""
       />
-      {/* <Typography color="#fff" variant="h3">Hi&nbsp;{authUser.state.name}</Typography> */}
       <Footer />
     </>
   );

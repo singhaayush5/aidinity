@@ -1,116 +1,112 @@
 import {
-    Card,
-    CardContent,
-    Grid,
-    TextField,
-    Typography,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
-    Divider,
-    Button,
-  } from "@mui/material";
-  import React, { useState, useEffect } from "react";
-  import { useNavigate } from "react-router-dom";
-  import Navbar from "../Navbar/navbar";
-  import axios from "axios";
+  Card,
+  CardContent,
+  Grid,
+  TextField,
+  Typography,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Divider,
+  Button,
+} from "@mui/material";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar/navbar";
+import axios from "axios";
+import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-  
-  const NewExpression = () => {
-    const navigate = useNavigate();
-  
-      const states = [
-          "Andhra Pradesh",
-          "Arunachal Pradesh",
-          "Assam",
-          "Bihar",
-          "Chhattisgarh",
-          "Goa",
-          "Gujarat",
-          "Haryana",
-          "Himachal Pradesh",
-          "Jharkhand",
-          "Karnataka",
-          "Kerala",
-          "Madhya Pradesh",
-          "Maharashtra",
-          "Manipur",
-          "Meghalaya",
-          "Mizoram",
-          "Nagaland",
-          "Odisha",
-          "Punjab",
-          "Rajasthan",
-          "Sikkim",
-          "Tamil Nadu",
-          "Telangana",
-          "Tripura",
-          "Uttar Pradesh",
-          "Uttarakhand",
-          "West Bengal",
-          "AN Island",
-          "Chandigarh",
-          "D&NH/D&D",
-          "Delhi",
-          "Ladakh",
-          "Lakshadweep",
-          "J&K",
-          "Puducherry"
-  
-      ]
-  
-    const [exp, setExp] = useState({
-        title: null,
-        state: null,
-        city: null,
-        expression: null
-    });
-  
-    const handleChange = (eve) => {
-      console.log(exp);
-      setExp({ ...exp, [eve.target.name]: eve.target.value });
-    };
-  
-    const postExpData = async (eve) => {
-      eve.preventDefault();
-      try {
-        const { title, state, city, expression } = exp;
-  
-  
-        const res = await axios
-          .post(
-            `${BASE_URL}/newexpression`,
-            {
-              title: title,
-              state: state,
-              city: city,
-              expression: expression
-            },
-            {
-              withCredentials: true,
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-    useEffect(() => {
-      axios
+const NewExpression = () => {
+  const navigate = useNavigate();
+
+  const states = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "AN Island",
+    "Chandigarh",
+    "D&NH/D&D",
+    "Delhi",
+    "Ladakh",
+    "Lakshadweep",
+    "J&K",
+    "Puducherry",
+  ];
+
+  const [exp, setExp] = useState({
+    title: null,
+    state: null,
+    city: null,
+    expression: null,
+  });
+
+  const handleChange = (eve) => {
+    setExp({ ...exp, [eve.target.name]: eve.target.value });
+  };
+
+  const postExpData = async (eve) => {
+    eve.preventDefault();
+    try {
+      const { title, state, city, expression } = exp;
+
+      const res = await axios
+        .post(
+          `${BASE_URL}/newexpression`,
+          {
+            title: title,
+            state: state,
+            city: city,
+            expression: expression,
+          },
+          {
+            withCredentials: true,
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          if (response.status === 200) navigate("/expressions");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    axios
       .get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
@@ -121,40 +117,60 @@ import Footer from "../Footer/footer";
       .then((res) => {
         if (res.status != 200) navigate("/login");
       })
-      .catch((err) => {console.log(err); navigate("/login")});
+      .catch((err) => {
+        console.log(err);
+        navigate("/login");
+      });
 
-      document.title = "New Expression | Aidinity";
-    });
-  
-    return (
-      <>
-        <Navbar />
-        <div
+    document.title = "New Expression | Aidinity";
+  });
+
+  return (
+    <>
+      <Navbar />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "8vh",
+          minHeight: "92vh",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "2.5vw",
+            fontWeight: 600,
+            letterSpacing: 1,
+            margin: "1% 0%",
+            textShadow: "4px 4px #000",
+          }}
+          color="#fff"
+          variant="h1"
+        >
+          Add a new{" "}
+          <span style={{ color: "#FF7F50", fontWeight: 700 }}>anonymous</span>{" "}
+          expression now
+        </Typography>
+        <Typography color="#777777" variant="h6" sx={{ letterSpacing: 1 }}>
+          Filling in all the details is mandatory.
+        </Typography>
+        <motion.div
+          className="buttondiv"
           style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
             alignItems: "center",
-            marginTop: "8vh",
-            minHeight:"92vh"
+            justifyContent: "center",
+            width: "100%",
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.6,
+            ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "2.5vw",
-              fontWeight: 600,
-              letterSpacing: 1,
-              margin: "1% 0%",
-              textShadow: "4px 4px #000"
-            }}
-            color="#fff"
-            variant="h1"
-          >
-            Add a new <span style={{ color: "#FF7F50", fontWeight:700 }}>anonymous</span> expression now
-          </Typography>
-          <Typography color="#777777" variant="h6" sx={{ letterSpacing: 1 }}>
-                    Filling in all the  details is  mandatory.
-                  </Typography>
           <Card
             sx={{
               width: "65%",
@@ -166,7 +182,7 @@ import Footer from "../Footer/footer";
               flexDirection: "column",
               justifyContent: "center",
               boxShadow: "10px 10px 0px 0px #000",
-              marginBottom:"5vh"
+              marginBottom: "5vh",
             }}
           >
             <CardContent>
@@ -186,7 +202,7 @@ import Footer from "../Footer/footer";
                         "& input": {
                           color: "#fff",
                         },
-                        "& .MuiInputLabel-root": { color: "white" }, 
+                        "& .MuiInputLabel-root": { color: "white" },
                         "& .MuiOutlinedInput-root": {
                           "& > fieldset": {
                             borderColor: "#fff",
@@ -218,10 +234,7 @@ import Footer from "../Footer/footer";
                       required
                     />
                   </Grid>
-                  
-  
-                 
-                  
+
                   <Grid xs={6} sm={6} item>
                     <FormControl
                       name="state"
@@ -279,10 +292,11 @@ import Footer from "../Footer/footer";
                         labelId="select-state-label"
                         label="state"
                       >
-                      {
-                          states.map((state,idx) => <MenuItem key={idx+1} value={state}>{state}</MenuItem>)
-                      }
-                        
+                        {states.map((state, idx) => (
+                          <MenuItem key={idx + 1} value={state}>
+                            {state}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -292,7 +306,7 @@ import Footer from "../Footer/footer";
                         "& input": {
                           color: "#fff",
                         },
-                        "& .MuiInputLabel-root": { color: "white" }, 
+                        "& .MuiInputLabel-root": { color: "white" },
                         "& .MuiOutlinedInput-root": {
                           "& > fieldset": {
                             borderColor: "#fff",
@@ -335,14 +349,14 @@ import Footer from "../Footer/footer";
                   <Grid xs={12} sm={12} item>
                     <Divider color="#444444" />
                   </Grid>
-                  
+
                   <Grid xs={12} sm={12} item>
                     <TextField
                       sx={{
                         "& input": {
                           color: "#fff",
                         },
-                        "& .MuiInputLabel-root": { color: "white" }, 
+                        "& .MuiInputLabel-root": { color: "white" },
                         "& .MuiOutlinedInput-root": {
                           "& > fieldset": {
                             borderColor: "#fff",
@@ -380,15 +394,13 @@ import Footer from "../Footer/footer";
                       required
                     />
                   </Grid>
-                  
-                  
+
                   <Grid xs={12} sm={12} item>
                     {exp.title &&
                     exp.state &&
                     exp.city &&
                     exp.expression &&
-                    exp.expression.length > 399 
-                         ? (
+                    exp.expression.length > 399 ? (
                       <Button
                         sx={{ borderRadius: 2, fontWeight: 600 }}
                         type="submit"
@@ -421,11 +433,11 @@ import Footer from "../Footer/footer";
               </form>
             </CardContent>
           </Card>
-        </div>
-        <Footer/>
-      </>
-    );
-  };
-  
-  export default NewExpression;
-  
+        </motion.div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default NewExpression;

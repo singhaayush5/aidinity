@@ -9,11 +9,7 @@ const PORT = process.env.PORT || 3005;
 const dbConnection = require("./database/connect");
 
 const app = express();
-app.use(cors({credentials: true}));
-// app.use(cors({
-//   credentials: true,
-//   origin: "http://localhost:5173"
-// }));
+app.use(cors({ credentials: true }));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -22,8 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 dbConnection();
 
 app.use("/", require("./router/router"));
-
-
 
 app.listen(PORT, () => {
   console.log(`App active on port ${PORT}!`);

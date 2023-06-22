@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Grid, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar/navbar";
@@ -11,7 +11,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const UserExpressions = () => {
   const authUser = useContext(UserContext);
   const [exps, setExps] = useState([]);
-  console.log(exps);
 
   useEffect(() => {
     axios
@@ -45,8 +44,9 @@ const UserExpressions = () => {
               color: "#fff",
             }}
           >
-            <Typography sx={{ fontSize: "3vw" }} variant="h3">
-              You haven&apos;t published any expressions till now.
+            <Typography sx={{ fontSize: "3vw", fontWeight: 500 }} variant="h3">
+              You haven&apos;t published any{" "}
+              <span style={{ color: "#8E5BEB" }}>expressions</span> till now.
             </Typography>
           </div>
         ) : (
@@ -115,8 +115,8 @@ const UserExpressions = () => {
             color: "#fff",
           }}
         >
-          <Typography sx={{ fontSize: "3vw" }} variant="h3">
-            You aren&apos;t logged in.
+          <Typography sx={{ fontSize: "3vw", fontWeight: 500 }} variant="h3">
+            You aren&apos;t <span style={{ color: "#8E5BEB" }}>logged</span> in.
           </Typography>
         </div>
       )}

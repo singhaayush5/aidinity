@@ -21,7 +21,6 @@ const UserStateProvider = (props) => {
           "Content-Type": "application/json",
         },
       });
-      
 
       if (res.status !== 200) {
         const err = new Error(res.error);
@@ -47,7 +46,9 @@ const UserStateProvider = (props) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{state, getCurrUser}}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={{ state, getCurrUser }}>
+      {props.children}
+    </UserContext.Provider>
   );
 };
 

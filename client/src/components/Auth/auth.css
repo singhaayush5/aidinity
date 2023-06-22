@@ -1,25 +1,17 @@
-/* @media (max-width:600px) {
-    .banner {
-      display: inline-block;
-    }
-
-} */
-
-@media (min-aspect-ratio: 1.13){
-    .authHalf{
-        width: 50%;
-        margin-bottom: -7vh;
-    }
-    .bottomlogo{
-        width: 7vw;
-    }
+@media (min-aspect-ratio: 1.13) {
+  .authHalf {
+    width: 50%;
+    margin-bottom: -7vh;
+  }
+  .bottomlogo {
+    width: 7vw;
+  }
 }
-@media (max-aspect-ratio: 1.13){
-    .banner {
-        display: none ;
-    }
-    .bottomlogo{
-        height: 4vw;
-    }
+@media (max-aspect-ratio: 1.13) {
+  .banner {
+    display: none;
+  }
+  .bottomlogo {
+    height: 4vw;
+  }
 }
-

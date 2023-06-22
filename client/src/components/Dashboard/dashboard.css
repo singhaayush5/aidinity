@@ -1,29 +1,40 @@
 .MuiButton-root {
-    background: linear-gradient(60deg, #AC41FB 30%, #8200FF 100%,  #AC41FB 70%);
-    border-radius: 4;
-    color: white;
-    
-    box-shadow: 0 3px 5px 2px #8570AC;
+  background: linear-gradient(60deg, #ac41fb 30%, #8200ff 100%, #ac41fb 70%);
+  border-radius: 4;
+  color: white;
+
+  box-shadow: 0 3px 5px 2px #8570ac;
+}
+
+@media (min-aspect-ratio: 1.13) {
+  .bottomlogo {
+    width: 7vw;
   }
-
-  @media (min-aspect-ratio: 1.13){
-    
-    .bottomlogo{
-        width: 7vw;
-    }
 }
-@media (max-aspect-ratio: 1.13){
-    
-    .bottomlogo{
-        height: 4vw;
-    }
+@media (max-aspect-ratio: 1.13) {
+  .bottomlogo {
+    height: 4vw;
+  }
 }
 
-table, th, td{
-    border: solid #999 2px;
-    border-collapse: collapse;
+table,
+th,
+td {
+  border: solid #999 2px;
+  border-collapse: collapse;
 }
- th{
-    background-color: #222;
-    color: #D1FF8F;
- }
+th {
+  background-color: #222;
+  color: #d1ff8f;
+}
+
+@media (max-width: 942px) {
+  .buttondiv {
+    width: 80%;
+  }
+}
+@media (min-width: 942px) {
+  .buttondiv {
+    width: 40%;
+  }
+}

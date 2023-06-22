@@ -25,6 +25,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/user/usercontext";
 import "./auth.css";
+import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -45,9 +46,7 @@ function Login() {
   });
 
   const handleChange = (eve) => {
-    console.log(user);
     setUser({ ...user, [eve.target.name]: eve.target.value });
-    console.log(user.branch);
   };
 
   const postUserData = async (eve) => {
@@ -66,7 +65,6 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           authUser.getCurrUser();
           navigate("/");
@@ -78,8 +76,6 @@ function Login() {
         console.log(err);
         setLoginError(true);
       });
-
-    console.log(res);
   };
 
   return (
@@ -104,6 +100,7 @@ function Login() {
             alt=""
           ></img>
         </div>
+
         <div
           className="authHalf"
           style={{
@@ -125,203 +122,231 @@ function Login() {
             }}
           >
             <Typography
-              style={{ fontWeight: 600, color: "#DECCFF", margin: "2% auto", textShadow:"4px 4px #000" }}
+              style={{
+                fontWeight: 600,
+                color: "#DECCFF",
+                margin: "2% auto",
+                textShadow: "4px 4px #000",
+              }}
               variant="h3"
             >
               Login
             </Typography>
-            <Card
+            <motion.div
+              className="buttondiv"
               style={{
-                backgroundColor: "#111",
-                width: "80%",
                 display: "flex",
-                flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center",
+                width: "100%",
+                color: "transparent",
               }}
-              elevation={0}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 1,
+                ease: [0, 0.7, 0.2, 1.01],
+              }}
             >
-              <CardContent>
-                <form>
-                  <Grid container spacing={2}>
-                    <Grid xs={12} item>
-                      <TextField
-                        sx={{
-                          "& input": {
-                            color: "#fff",
-                          },
-                          "& .MuiInputLabel-root": { color: "white" }, //styles the label
-                          "& .MuiOutlinedInput-root": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                            },
-                          },
-                          "& .MuiOutlinedInput-root:hover": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                              color: "white",
-                            },
-                          },
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                            },
-                          },
-                        }}
-                        inputMode="dark"
-                        size="small"
-                        name="email"
-                        value={user.email}
-                        onChange={handleChange}
-                        type="email"
-                        label="Email"
-                        variant="outlined"
-                        fullWidth
-                        required
-                      />
-                    </Grid>
-                    <Grid xs={12} item>
-                      <FormControl
-                        sx={{
-                          "& input": {
-                            color: "#fff",
-                          },
-                          "& .MuiInputLabel-root": { color: "white" },
-                          "& .MuiOutlinedInput-root": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                            },
-                          },
-                          "& .MuiOutlinedInput-root:hover": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                              color: "grey",
-                            },
-                          },
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: "#fff",
-                              borderRadius: 0,
-                            },
-                          },
-                        }}
-                        variant="outlined"
-                        size="small"
-                        name="password"
-                        value={user.password}
-                        onChange={handleChange}
-                        required
-                        fullWidth
-                      >
-                        <InputLabel htmlFor="outlined-adornment-password">
-                          Password
-                        </InputLabel>
-                        <OutlinedInput
-                          id="outlined-adornment-password"
-                          name="password"
-                          type={showPassword ? "text" : "password"}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPassword(!showPassword)}
-                                onMouseDown={(eve) => eve.preventDefault()}
-                                edge="end"
-                              >
-                                {showPassword ? (
-                                  <VisibilityOff style={{ color: "#fff" }} />
-                                ) : (
-                                  <Visibility style={{ color: "#fff" }} />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                          label="Password"
-                        />
-                      </FormControl>
-                    </Grid>
-
-                    <Grid xs={12} item>
-                      {user.email && user.password ? (
-                        <Button
-                          sx={{ borderRadius: 0, fontWeight: 600, color:"#fff" }}
-                          type="submit"
-                          onClick={postUserData}
-                          variant="contained"
-                          color="primary"
-                          fullWidth
-                        >
-                          Submit
-                        </Button>
-                      ) : (
-                        <Button
+              <Card
+                style={{
+                  backgroundColor: "#111",
+                  width: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                elevation={0}
+              >
+                <CardContent>
+                  <form>
+                    <Grid container spacing={2}>
+                      <Grid xs={12} item>
+                        <TextField
                           sx={{
-                            borderRadius: 0,
-                            fontWeight: 600,
-                            "&.Mui-disabled": {
-                              background: "#4f4f4f",
-                              color: "#9b9e9e",
+                            "& input": {
+                              color: "#fff",
+                            },
+                            "& .MuiInputLabel-root": { color: "white" },
+                            "& .MuiOutlinedInput-root": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                              },
+                            },
+                            "& .MuiOutlinedInput-root:hover": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                                color: "white",
+                              },
+                            },
+                            "& .MuiOutlinedInput-root.Mui-focused": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                              },
                             },
                           }}
-                          variant="contained"
-                          disabled
+                          inputMode="dark"
+                          size="small"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                          type="email"
+                          label="Email"
+                          variant="outlined"
+                          fullWidth
+                          required
+                        />
+                      </Grid>
+                      <Grid xs={12} item>
+                        <FormControl
+                          sx={{
+                            "& input": {
+                              color: "#fff",
+                            },
+                            "& .MuiInputLabel-root": { color: "white" },
+                            "& .MuiOutlinedInput-root": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                              },
+                            },
+                            "& .MuiOutlinedInput-root:hover": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                                color: "grey",
+                              },
+                            },
+                            "& .MuiOutlinedInput-root.Mui-focused": {
+                              "& > fieldset": {
+                                borderColor: "#fff",
+                                borderRadius: 0,
+                              },
+                            },
+                          }}
+                          variant="outlined"
+                          size="small"
+                          name="password"
+                          value={user.password}
+                          onChange={handleChange}
+                          required
                           fullWidth
                         >
-                          Submit
-                        </Button>
-                      )}
-                    </Grid>
-                    <Grid xs={12} item>
-                      <Collapse in={loginError}>
-                        <Alert
-                          severity="error"
-                          action={
-                            <IconButton
-                              aria-label="close"
-                              color="inherit"
-                              size="small"
-                              onClick={() => {
-                                setLoginError(!loginError);
-                              }}
-                            >
-                              <CloseIcon fontSize="inherit" />
-                            </IconButton>
-                          }
-                          sx={{ mb: 2 }}
-                        >
-                          <strong>Invalid credentials</strong> - retry.
-                        </Alert>
-                      </Collapse>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <Typography
-                        sx={{
-                          color: "#9b9e9e",
-                          fontSize: "15px",
-                          textAlign: "right",
-                        }}
-                        variant="h6"
-                      >
-                        Don&apos;t have an account?{" "}
-                        <span style={{ color: "#fff" }}>
-                          <a
-                            style={{ textDecoration: "none", color: "#8E5BEB" }}
-                            href="/register"
+                          <InputLabel htmlFor="outlined-adornment-password">
+                            Password
+                          </InputLabel>
+                          <OutlinedInput
+                            id="outlined-adornment-password"
+                            name="password"
+                            type={showPassword ? "text" : "password"}
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle password visibility"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                  onMouseDown={(eve) => eve.preventDefault()}
+                                  edge="end"
+                                >
+                                  {showPassword ? (
+                                    <VisibilityOff style={{ color: "#fff" }} />
+                                  ) : (
+                                    <Visibility style={{ color: "#fff" }} />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                            label="Password"
+                          />
+                        </FormControl>
+                      </Grid>
+
+                      <Grid xs={12} item>
+                        {user.email && user.password ? (
+                          <Button
+                            sx={{
+                              borderRadius: 0,
+                              fontWeight: 600,
+                              color: "#fff",
+                            }}
+                            type="submit"
+                            onClick={postUserData}
+                            variant="contained"
+                            color="primary"
+                            fullWidth
                           >
-                            &nbsp;Register➜
-                          </a>
-                        </span>
-                      </Typography>
+                            Submit
+                          </Button>
+                        ) : (
+                          <Button
+                            sx={{
+                              borderRadius: 0,
+                              fontWeight: 600,
+                              "&.Mui-disabled": {
+                                background: "#4f4f4f",
+                                color: "#9b9e9e",
+                              },
+                            }}
+                            variant="contained"
+                            disabled
+                            fullWidth
+                          >
+                            Submit
+                          </Button>
+                        )}
+                      </Grid>
+                      <Grid xs={12} item>
+                        <Collapse in={loginError}>
+                          <Alert
+                            severity="error"
+                            action={
+                              <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                  setLoginError(!loginError);
+                                }}
+                              >
+                                <CloseIcon fontSize="inherit" />
+                              </IconButton>
+                            }
+                            sx={{ mb: 2 }}
+                          >
+                            <strong>Invalid credentials</strong> - retry.
+                          </Alert>
+                        </Collapse>
+                      </Grid>
+                      <Grid xs={12} item>
+                        <Typography
+                          sx={{
+                            color: "#9b9e9e",
+                            fontSize: "15px",
+                            textAlign: "right",
+                          }}
+                          variant="h6"
+                        >
+                          Don&apos;t have an account?{" "}
+                          <span style={{ color: "#fff" }}>
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "#8E5BEB",
+                              }}
+                              href="/register"
+                            >
+                              &nbsp;Register➜
+                            </a>
+                          </span>
+                        </Typography>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </form>
-              </CardContent>
-            </Card>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
             <img
               className="bottomlogo"
               style={{ position: "absolute", bottom: "3vh", right: "5vh" }}

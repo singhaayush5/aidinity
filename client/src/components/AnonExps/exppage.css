@@ -1,32 +1,24 @@
 @media (max-width: 942px) {
-
-    .expdiv1{
-      
-      width:94%;
-      margin-left: 3%;
-      
-    }
-
-    .titlearea{
-        margin-top: 4%;
-    }
-   
-    .titlearea h3{
-      font-size: 30px;
-    }
-    .underarea h5{
-      font-size: 15px;
-    }
+  .expdiv1 {
+    width: 94%;
+    margin-left: 3%;
   }
-  
-  @media (min-width: 942px) {
-    
-    
-    .expdiv1 {
-      width: 84%;
-      padding: 3vw 8% 0vw 7vw;
-    }
-   
-    
+
+  .titlearea {
+    margin-top: 4%;
   }
-  
+
+  .titlearea h3 {
+    font-size: 30px;
+  }
+  .underarea h5 {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 942px) {
+  .expdiv1 {
+    width: 84%;
+    padding: 3vw 8% 0vw 7vw;
+  }
+}

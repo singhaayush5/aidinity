@@ -38,7 +38,6 @@ router.post("/paymentdetails", payController.payDetails);
 router.post("/confirmpayment", campController.confirmPayment);
 
 router.get("/checkuser", authenticate, (req,res) => {
-    console.log("hwyy");
     res.send(req.rootUser);
 });
 

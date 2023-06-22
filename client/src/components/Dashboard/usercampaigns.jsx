@@ -11,7 +11,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const UserCampaigns = () => {
   const authUser = useContext(UserContext);
   const [camps, setCamps] = useState([]);
-  console.log(camps);
 
   useEffect(() => {
     axios
@@ -45,8 +44,10 @@ const UserCampaigns = () => {
               color: "#fff",
             }}
           >
-            <Typography sx={{ fontSize: "3vw" }} variant="h3">
-              You don&apos;t have any fundraiser campaigns currently.
+            <Typography sx={{ fontSize: "3vw", fontWeight: 500 }} variant="h3">
+              You don&apos;t have any{" "}
+              <span style={{ color: "#8E5BEB" }}>fundraiser</span> campaigns
+              currently.
             </Typography>
           </div>
         ) : (
@@ -116,8 +117,8 @@ const UserCampaigns = () => {
             color: "#fff",
           }}
         >
-          <Typography sx={{ fontSize: "3vw" }} variant="h3">
-            You aren&apos;t logged in.
+          <Typography sx={{ fontSize: "3vw", fontWeight: 500 }} variant="h3">
+            You aren&apos;t <span style={{ color: "#8E5BEB" }}>logged</span> in.
           </Typography>
         </div>
       )}

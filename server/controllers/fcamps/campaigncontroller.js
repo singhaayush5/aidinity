@@ -1,10 +1,22 @@
 const User = require("../../database/models/user");
 const Camp = require("../../database/models/fundcampaign");
 
+//Create a new fundraiser campaign.
 exports.createNewCampaign = async (req, res) => {
   try {
-    const { name, age, gender, disease, description, amt, state, city, accno, accholder, ifsc } =
-      req.body;
+    const {
+      name,
+      age,
+      gender,
+      disease,
+      description,
+      amt,
+      state,
+      city,
+      accno,
+      accholder,
+      ifsc,
+    } = req.body;
     if (
       !name ||
       !age ||
@@ -59,6 +71,7 @@ exports.createNewCampaign = async (req, res) => {
   }
 };
 
+//Get all the fundraiser campaigns.
 exports.getAllCampaigns = async (req, res) => {
   try {
     const camps = await Camp.find();
@@ -72,6 +85,7 @@ exports.getAllCampaigns = async (req, res) => {
   }
 };
 
+//Find a specific fundraiser campaign.
 exports.findCampaign = async (req, res) => {
   try {
     const cid = req.params.id;
@@ -88,6 +102,7 @@ exports.findCampaign = async (req, res) => {
   }
 };
 
+//Finish a fundraiser campaign.
 exports.finishCampaign = async (req, res) => {
   try {
     const cid = req.params.id;
@@ -105,6 +120,7 @@ exports.finishCampaign = async (req, res) => {
   }
 };
 
+//Confirm a donation towards a fundraiser.
 exports.confirmPayment = async (req, res) => {
   try {
     const { cid, uid, ordId, amount } = req.body;
