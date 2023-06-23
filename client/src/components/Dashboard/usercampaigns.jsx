@@ -7,18 +7,22 @@ import axios from "axios";
 import Footer from "../Footer/footer";
 import UserContext from "../../context/user/usercontext";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const UserCampaigns = () => {
   const authUser = useContext(UserContext);
   const [camps, setCamps] = useState([]);
 
   useEffect(() => {
+    const token = cookies.get("jwebtoken");
     axios
       .get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

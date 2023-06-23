@@ -3,8 +3,9 @@ const User = require("../database/models/user");
 
 const Authenticate = async (req, res, next) => {
   try {
-    console.log(req.cookies);
-    const token = req.cookies.jwebtoken;
+    // console.log(req.cookies);
+    const token = await req.headers.authorization.split(" ")[1];
+    // const token = req.cookies.jwebtoken;
     const verified = await jwt.verify(token, process.env.JWT_SECRET);
     console.log(verified);
 

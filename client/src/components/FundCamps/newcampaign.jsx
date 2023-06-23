@@ -18,6 +18,9 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 
 const NewCampaign = () => {
   const navigate = useNavigate();
@@ -83,6 +86,7 @@ const NewCampaign = () => {
   const postCampData = async (eve) => {
     eve.preventDefault();
     try {
+      const token = cookies.get("jwebtoken");
       const {
         fname,
         lname,
@@ -121,6 +125,7 @@ const NewCampaign = () => {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
         )
@@ -136,12 +141,14 @@ const NewCampaign = () => {
   };
 
   useEffect(() => {
+    const token = cookies.get("jwebtoken");
     axios
       .get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

@@ -4,6 +4,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UserContext from "../../context/user/usercontext";
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const CommentBubble = (props) => {
   const [isPresent, setPresent] = useState(true);
@@ -11,7 +13,7 @@ const CommentBubble = (props) => {
 
   const delComment = async (eve) => {
     eve.preventDefault();
-
+    const token = cookies.get("jwebtoken");
     const res = await axios
       .post(
         `${BASE_URL}/deletecomment`,
@@ -27,6 +29,7 @@ const CommentBubble = (props) => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )

@@ -7,18 +7,22 @@ import "./dashboard.css";
 import { motion } from "framer-motion";
 import Navbar from "../Navbar/navbar";
 import Footer from "../Footer/footer";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const UserProfile = () => {
   const [usr, setUsr] = useState({});
   const authUser = useContext(UserContext);
 
   useEffect(() => {
+    const token = cookies.get("jwebtoken");
     axios
       .get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

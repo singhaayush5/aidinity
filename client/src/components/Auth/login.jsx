@@ -27,7 +27,9 @@ import UserContext from "../../context/user/usercontext";
 import "./auth.css";
 import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
+import Cookies from  "universal-cookie";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const cookies = new Cookies();
 
 function Login() {
   const navigate = useNavigate();
@@ -65,10 +67,12 @@ function Login() {
         }
       )
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
+          cookies.set("jwebtoken", response.data.token, {path: "/"});
           authUser.getCurrUser();
           navigate("/");
         } else {
+          console.log(response);
           setLoginError(true);
         }
       })

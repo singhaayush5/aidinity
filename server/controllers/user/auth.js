@@ -54,15 +54,14 @@ exports.login = async (req, res) => {
       const token = await userExists.generateAuthToken();
       console.log(token);
 
-      res.cookie("jwebtoken", token, {
-        expires: new Date(Date.now() + 2592000000),
-        httpOnly: true,
-        secure: true,
-      });
+      // res.cookie("jwebtoken", token, {
+      //   expires: new Date(Date.now() + 2592000000),
+      //   httpOnly: true,
+      // });
       if (!match) {
         res.status(410).json({ msg: "invalid" });
       } else {
-        res.status(201).json({ msg: "Success!" });
+        res.status(200).send({ msg: "Success!", token });
       }
     } else {
       res.status(401).json({ msg: "failure!" });

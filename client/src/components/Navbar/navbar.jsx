@@ -7,7 +7,8 @@ import { useState, useContext } from "react";
 import UserContext from "../../context/user/usercontext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const Navbar = () => {
   const authUser = useContext(UserContext);
@@ -16,18 +17,8 @@ const Navbar = () => {
   const [showNav, setNav] = useState(0);
 
   const logout = async () => {
-    axios
-      .get(`${BASE_URL}/logout`, {
-        withCredentials: true,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        navigate(0);
-      })
-      .catch((err) => console.log(err));
+    cookies.remove("jwebtoken", {path: '/'});
+    navigate(0);
   };
 
   return (

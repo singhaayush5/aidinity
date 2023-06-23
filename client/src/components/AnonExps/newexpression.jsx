@@ -18,6 +18,8 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const NewExpression = () => {
   const navigate = useNavigate();
@@ -75,6 +77,7 @@ const NewExpression = () => {
   const postExpData = async (eve) => {
     eve.preventDefault();
     try {
+      const token = cookies.get("jwebtoken");
       const { title, state, city, expression } = exp;
 
       const res = await axios
@@ -91,6 +94,7 @@ const NewExpression = () => {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
         )
@@ -106,12 +110,14 @@ const NewExpression = () => {
   };
 
   useEffect(() => {
+    const token = cookies.get("jwebtoken");
     axios
       .get(`${BASE_URL}/checkuser`, {
         withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

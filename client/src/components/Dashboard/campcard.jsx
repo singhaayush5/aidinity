@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const CampCard = (props) => {
   const [camp, setCamp] = useState({});
@@ -23,12 +25,14 @@ const CampCard = (props) => {
 
   const finishCamp = async () => {
     try {
+      const token = cookies.get("jwebtoken");
       const result = await axios
         .get(`${BASE_URL}/finishcamp/${props.id}`, {
           withCredentials: true,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {});

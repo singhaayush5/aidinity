@@ -17,6 +17,8 @@ import "./exppage.css";
 import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const ExpressionPage = () => {
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ const ExpressionPage = () => {
 
   const addComment = async (eve) => {
     eve.preventDefault();
-
+    const token = cookies.get("jwebtoken");
     const res = await axios
       .post(
         `${BASE_URL}/addcomment`,
@@ -63,6 +65,7 @@ const ExpressionPage = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )
