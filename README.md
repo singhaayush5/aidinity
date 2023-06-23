@@ -2,7 +2,7 @@
 
 Welcome to Aidinity!
 
-Aidinity is an innovative online platform that combines the power of fundraising campaigns for medical needs with a safe space for anonymous expressions about mental health. It aims empower individuals facing medical challenges and provide a supportive community for sharing personal struggles and experiences.
+Aidinity is an innovative online platform that combines the power of fundraising campaigns for medical needs with a safe space for anonymous expressions about mental health. It aims to empower individuals facing medical challenges and provide a supportive community for sharing personal struggles and experiences.
 
 ***NOTE** : All transactions in the currently deployed environment are test transactions. So, you won't be charged for them.*
 
@@ -18,7 +18,7 @@ Aidinity is an innovative online platform that combines the power of fundraising
 
 ## Getting Started
 
-You can use Aidinity now at [aidinity.netlify.app](https://aidinity.netlify.app).
+You can use **Aidinity** now at [aidinity.netlify.app](https://aidinity.netlify.app).
 
 **OR**
 
