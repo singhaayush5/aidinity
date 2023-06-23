@@ -18,7 +18,7 @@ const UserStateProvider = (props) => {
     try {
       const token = cookies.get("jwebtoken");
       const res = await axios.get(`${BASE_URL}/checkuser`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

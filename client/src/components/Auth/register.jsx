@@ -24,9 +24,12 @@ import { useState, useEffect } from "react";
 import "./auth.css";
 import { motion } from "framer-motion";
 import Footer from "../Footer/footer";
+import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Register() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Register | Aidinity";
   }, []);
@@ -63,7 +66,7 @@ function Register() {
         },
         { headers: { "Content-Type": "application/json" } }
       )
-      .then((response) => {})
+      .then((response) => { navigate("/login")})
       .catch((err) => {
         console.log(err);
       });

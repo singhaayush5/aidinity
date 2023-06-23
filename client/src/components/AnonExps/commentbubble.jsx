@@ -25,7 +25,6 @@ const CommentBubble = (props) => {
           comment: props.comment,
         },
         {
-          withCredentials: true,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

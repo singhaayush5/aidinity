@@ -10,6 +10,7 @@ import home3 from "../../assets/home3.jpg";
 import Footer from "../Footer/footer";
 import homelogo from "../../assets/homelogo.png";
 import UserContext from "../../context/user/usercontext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const authUser = useContext(UserContext);
@@ -138,6 +139,8 @@ const Home = () => {
                   borderRadius: 5,
                 }}
                 variant="outlined"
+                component={Link}
+                to="/#about"
                 size="large"
               >
                 explore 🡣
@@ -152,6 +155,8 @@ const Home = () => {
                   borderRadius: 5,
                 }}
                 variant="outlined"
+                component={Link}
+                to="/login"
                 size="large"
               >
                 login to continue 🡢

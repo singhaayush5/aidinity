@@ -18,7 +18,7 @@ const UserExpressions = () => {
     const token = cookies.get("jwebtoken");
     axios
       .get(`${BASE_URL}/checkuser`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

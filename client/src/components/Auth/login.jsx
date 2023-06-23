@@ -60,7 +60,7 @@ function Login() {
         `${BASE_URL}/login`,
         { email: email, password: password },
         {
-          withCredentials: true,
+          
           headers: {
             "Content-Type": "application/json",
           },

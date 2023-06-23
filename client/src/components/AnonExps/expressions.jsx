@@ -15,7 +15,7 @@ const Expressions = () => {
   useEffect(() => {
     axios
       .get(`${BASE_URL}/allexps`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

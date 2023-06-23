@@ -82,7 +82,7 @@ const CampPage = () => {
           currency: "INR",
         },
         {
-          withCredentials: true,
+          
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const CampPage = () => {
             handler: async function (response) {
               const paymentDetails = await axios
                 .post(`${BASE_URL}/paymentdetails`, response, {
-                  withCredentials: true,
+                  
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
@@ -130,7 +130,7 @@ const CampPage = () => {
                           amount: amt,
                         },
                         {
-                          withCredentials: true,
+                          
                           headers: {
                             Accept: "application/json",
                             "Content-Type": "application/json",
@@ -176,7 +176,7 @@ const CampPage = () => {
   const getCamp = async () => {
     axios
       .get(`${BASE_URL}/findcamp/${id}`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

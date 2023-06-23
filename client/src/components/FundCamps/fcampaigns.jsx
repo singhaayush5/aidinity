@@ -15,7 +15,7 @@ const FCampaigns = () => {
   useEffect(() => {
     axios
       .get(`${BASE_URL}/allcamps`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

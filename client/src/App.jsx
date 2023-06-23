@@ -3,6 +3,9 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Route,
+  Router,
+  Routes,
+  ScrollRestoration
 } from "react-router-dom";
 import Home from "./components/Home/home";
 import Login from "./components/Auth/login";
@@ -22,6 +25,7 @@ import UserProfile from "./components/Dashboard/userprofile";
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
+
       <Route path="/">
         <Route index element={<Home />}></Route>
         <Route path="login" element={<Login />}></Route>
@@ -40,6 +44,9 @@ const App = () => {
           <Route path="donations" element={<UserDonations/>}></Route>
         </Route>
       </Route>
+   
+     
+      
     )
   );
 

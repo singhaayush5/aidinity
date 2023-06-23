@@ -15,7 +15,7 @@ const CampCard = (props) => {
   useEffect(() => {
     axios
       .get(`${BASE_URL}/findexpression/${props.id}`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const CampCard = (props) => {
       const token = cookies.get("jwebtoken");
       const result = await axios
         .get(`${BASE_URL}/deleteexpression/${props.id}`, {
-          withCredentials: true,
+          
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

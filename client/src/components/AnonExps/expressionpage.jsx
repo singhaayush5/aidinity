@@ -30,7 +30,7 @@ const ExpressionPage = () => {
   const getExpression = async () => {
     axios
       .get(`${BASE_URL}/findexpression/${id}`, {
-        withCredentials: true,
+        
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const ExpressionPage = () => {
           comment: cmmnt,
         },
         {
-          withCredentials: true,
+          
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

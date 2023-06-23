@@ -4,6 +4,7 @@ import { Divider, Typography } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GithubIcon from "@mui/icons-material/Github";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const now = new Date();
@@ -18,9 +19,9 @@ const Footer = () => {
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <a href="/">
+        <Link to="/">
           <img className="navlogo" src={logowhite} alt=""></img>
-        </a>
+        </Link>
         <div>
           <a href="https://www.instagram.com/">
             <InstagramIcon
@@ -50,9 +51,12 @@ const Footer = () => {
           color="#fff"
           variant="h6"
         >
-          <a style={{ textDecoration: "none", color: "#fff" }} href="/">
-            Home
-          </a>
+          {/* <a style={{ textDecoration: "none", color: "#fff" }} href="/"> */}
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
+           Home
+          </Link>
+           
+          {/* </a> */}
         </Typography>
         <Typography
           sx={{ textTransform: "uppercase" }}
@@ -66,12 +70,14 @@ const Footer = () => {
           color="#fff"
           variant="h6"
         >
-          <a
+          {/* <a
             style={{ textDecoration: "none", color: "#fff" }}
             href="/expressions"
-          >
+          > */}
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/expressions">
             Expressions
-          </a>
+            </Link>
+          {/* </a> */}
         </Typography>
         <Typography
           sx={{ textTransform: "uppercase" }}
@@ -85,12 +91,15 @@ const Footer = () => {
           color="#fff"
           variant="h6"
         >
-          <a
+          {/* <a
             style={{ textDecoration: "none", color: "#fff" }}
             href="/fundcampaigns"
-          >
+          > */}
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/fundcampaigns">
             Fund Campaigns
-          </a>
+            </Link>
+        
+          {/* </a> */}
         </Typography>
         <Typography
           sx={{ textTransform: "uppercase" }}

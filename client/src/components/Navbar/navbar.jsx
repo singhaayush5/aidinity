@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const [showNav, setNav] = useState(0);
 
-  const logout = async () => {
+  const logout = async  () => {
     cookies.remove("jwebtoken", {path: '/'});
     navigate(0);
   };
