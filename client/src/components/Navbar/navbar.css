@@ -1,4 +1,4 @@
-@media (min-aspect-ratio: 1.13) {
+@media (min-width: 942px) {
   .micon path {
     display: none;
   }
@@ -10,7 +10,7 @@
     height: 7vh;
   }
 }
-@media (max-aspect-ratio: 1.13) {
+@media (max-width: 942px) {
   .navlinks {
     display: none !important;
   }

@@ -1,23 +1,98 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../context/user/usercontext";
-import { Typography, Grid, Box, Button } from "@mui/material";
+import { Typography, Grid, Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar/navbar";
 import logowhite from "../../assets/logowhite.png";
 import { motion } from "framer-motion";
 import "./dashboard.css";
 import Footer from "../Footer/footer";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+import axios from "axios";
+
+
 
 const Dashboard = () => {
   const authUser = useContext(UserContext);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  
+  // const [loading, setLoading] = useState(true);
+  const token = cookies.get("jwebtoken");
+  const getCurrUser = async () => {
+    try {
+      const token = cookies.get("jwebtoken");
+      const res = await axios.get(`${BASE_URL}/checkuser`, {
+        
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.status === 200) {
+        setUser(res.data);
+        setLoading(false);
+        
+      } 
+      else{
+        setLoading(false);
+      }
+    } catch (err) {
+      console.log(err);
+
+    }
+  };
 
   useEffect(() => {
+    axios
+      .get(`${BASE_URL}/checkuser`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        {
+          setUser(res.data);
+        }
+      }).catch((err) => {
+        console.log(err);
+      }).then(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
+    
     document.title = "Dashboard | Aidinity";
   }, []);
 
   return (
     <>
       <Navbar />
+      {loading ? (
+        <>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              marginTop: "8vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+            <Typography sx={{fontWeight:500, marginTop:"3vh"}} color="#fff" variant="h6">Sit Tight. Working on your request ...</Typography>
+          </div>
+        </>
+      ) :
+      <>
       <Grid container>
         <Grid xs={12} sm={12} item>
           <Box
@@ -47,7 +122,7 @@ const Dashboard = () => {
                     <span
                       style={{ color: "#8E5BEB", textShadow: ".3vw .3vw #000" }}
                     >
-                      {authUser.state.name}
+                      {user.name}
                     </span>
                     &nbsp;👋🏻
                   </Typography>
@@ -282,6 +357,7 @@ const Dashboard = () => {
         src={logowhite}
         alt=""
       />
+      </>}
       <Footer />
     </>
   );

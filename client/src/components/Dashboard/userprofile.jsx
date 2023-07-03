@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Divider, Typography } from "@mui/material";
+import { Divider, Typography, CircularProgress } from "@mui/material";
 import UserContext from "../../context/user/usercontext";
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -12,6 +12,7 @@ const cookies = new Cookies();
 
 const UserProfile = () => {
   const [usr, setUsr] = useState({});
+  const [loading, setLoading] = useState(true);
   const authUser = useContext(UserContext);
 
   useEffect(() => {
@@ -27,6 +28,9 @@ const UserProfile = () => {
       })
       .then((res) => {
         setUsr(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       });
 
     document.title = "User Profile | Aidinity";
@@ -36,6 +40,23 @@ const UserProfile = () => {
     <>
       {" "}
       <Navbar />{" "}
+      {loading ? <>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              marginTop: "8vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+            <Typography sx={{fontWeight:500, marginTop:"3vh"}} color="#fff" variant="h6">Sit Tight. Working on your request ...</Typography>
+          </div>
+        </> :
+      <>
       {usr._id ? (
         <motion.div
           className="buttondiv"
@@ -209,6 +230,7 @@ const UserProfile = () => {
           </Typography>
         </div>
       )}
+      </>}
       <Footer />
     </>
   );

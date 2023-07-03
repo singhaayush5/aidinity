@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Typography } from "@mui/material";
+import { Typography, CircularProgress } from "@mui/material";
 import UserContext from "../../context/user/usercontext";
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -13,6 +13,7 @@ const cookies = new Cookies();
 const UserDonations = () => {
   const authUser = useContext(UserContext);
   const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = cookies.get("jwebtoken");
@@ -27,6 +28,10 @@ const UserDonations = () => {
       })
       .then((res) => {
         setDonations(res.data.donations);
+      }).then(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
 
     document.title = "My Donations | Aidinity";
@@ -36,6 +41,25 @@ const UserDonations = () => {
     <>
       {" "}
       <Navbar />{" "}
+      {loading ? (
+        <>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              marginTop: "8vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+            <Typography sx={{fontWeight:500, marginTop:"3vh"}} color="#fff" variant="h6">Sit Tight. Working on your request ...</Typography>
+          </div>
+        </>
+      ) :
+      <>
       {authUser.state.id ? (
         !donations || donations.length === 0 ? (
           <div
@@ -157,6 +181,7 @@ const UserDonations = () => {
           </Typography>
         </div>
       )}
+      </>}
       <Footer />
     </>
   );

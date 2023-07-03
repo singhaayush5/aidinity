@@ -12,8 +12,12 @@ import {
   InputAdornment,
   OutlinedInput,
   IconButton,
+  Collapse,
+  Alert,
+  
 } from "@mui/material";
 
+import CloseIcon from "@mui/icons-material/Close";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
@@ -29,6 +33,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Register() {
   const navigate = useNavigate();
+  const [regError, setRegError] = useState(false);
 
   useEffect(() => {
     document.title = "Register | Aidinity";
@@ -66,7 +71,10 @@ function Register() {
         },
         { headers: { "Content-Type": "application/json" } }
       )
-      .then((response) => { navigate("/login")})
+      .then((response) => { 
+        if(response.status === 202) setRegError(true);
+        else navigate("/login");
+    })
       .catch((err) => {
         console.log(err);
       });
@@ -499,6 +507,28 @@ function Register() {
                             Submit
                           </Button>
                         )}
+                      </Grid>
+                      <Grid xs={12} item>
+                        <Collapse in={regError}>
+                          <Alert
+                            severity="error"
+                            action={
+                              <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                  setRegError(!regError);
+                                }}
+                              >
+                                <CloseIcon fontSize="inherit" />
+                              </IconButton>
+                            }
+                            sx={{ mb: 2 }}
+                          >
+                            <strong>Email</strong> already exists.
+                          </Alert>
+                        </Collapse>
                       </Grid>
                       <Grid xs={12} item>
                         <Typography

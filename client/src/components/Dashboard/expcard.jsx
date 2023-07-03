@@ -1,4 +1,4 @@
-import { Card, Typography, Grid, Divider, Button } from "@mui/material";
+import { Card, Typography, Grid, Divider, Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,7 @@ const CampCard = (props) => {
   const navigate = useNavigate();
 
   const [exp, setExp] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -23,6 +24,10 @@ const CampCard = (props) => {
       })
       .then((res) => {
         setExp(res.data);
+      }).then(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1);
       });
   }, []);
 
@@ -85,6 +90,23 @@ const CampCard = (props) => {
               boxShadow: "10px 10px #000",
             }}
           >
+          {loading ? (
+              <>
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    marginTop:170,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </div>
+              </>
+            ) :
+            <>
             <Typography
               className="titlefont"
               sx={{ fontWeight: 500 }}
@@ -132,6 +154,7 @@ const CampCard = (props) => {
                 </Button>{" "}
               </div>
             </div>
+            </>}
           </Card>
         </motion.div>
       </Grid>

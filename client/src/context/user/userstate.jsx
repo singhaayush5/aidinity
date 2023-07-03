@@ -14,6 +14,7 @@ const UserStateProvider = (props) => {
     email: null,
   });
 
+
   const getCurrUser = async () => {
     try {
       const token = cookies.get("jwebtoken");
@@ -26,10 +27,10 @@ const UserStateProvider = (props) => {
         },
       });
 
-      if (res.status !== 200) {
+      if (res.status !==200) {
         const err = new Error(res.error);
         throw err;
-      } else {
+      } else  {
         const { _id, name, gender, age, email } = res.data;
         setState({
           ...state,
@@ -39,7 +40,9 @@ const UserStateProvider = (props) => {
           age: age,
           email: email,
         });
+       
       }
+     
     } catch (err) {
       console.log(err);
     }

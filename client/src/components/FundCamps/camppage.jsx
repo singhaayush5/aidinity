@@ -7,6 +7,7 @@ import {
   Grid,
   Box,
   Snackbar,
+  CircularProgress
 } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/user/usercontext";
@@ -20,6 +21,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const CampPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [camp, setCamp] = useState({});
   const [state, setState] = useState({
     open: false,
@@ -182,7 +184,11 @@ const CampPage = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => setCamp(res.data));
+      .then((res) => setCamp(res.data)).then(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
   };
 
   useEffect(() => {
@@ -202,6 +208,25 @@ const CampPage = () => {
   return (
     <>
       <Navbar />
+      {loading ? (
+        <>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              marginTop: "8vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+            <Typography sx={{fontWeight:500, marginTop:"3vh"}} color="#fff" variant="h6">Sit Tight. Working on your request ...</Typography>
+          </div>
+        </>
+      ) :
+      <>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
@@ -611,6 +636,7 @@ const CampPage = () => {
           </Box>
         </Grid>
       </Grid>
+      </>}
       <Footer />
     </>
   );

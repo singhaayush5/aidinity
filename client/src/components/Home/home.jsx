@@ -132,7 +132,6 @@ const Home = () => {
               <Button
                 className="homebuttons"
                 sx={{
-                  width: "25%",
                   marginTop: "5vh",
                   background: "transparent",
                   boxShadow: "0 0px 0px 0px #000",

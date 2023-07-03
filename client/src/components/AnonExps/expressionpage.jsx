@@ -5,6 +5,7 @@ import {
   Button,
   TextField,
   Grid,
+  CircularProgress
 } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/user/usercontext";
@@ -22,6 +23,7 @@ const cookies = new Cookies();
 
 const ExpressionPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [expression, setExpression] = useState({});
   const authUser = useContext(UserContext);
   const [cmmnt, setCmmnt] = useState(null);
@@ -36,7 +38,11 @@ const ExpressionPage = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => setExpression(res.data));
+      .then((res) => setExpression(res.data)).then(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
   };
 
   useEffect(() => {
@@ -80,6 +86,25 @@ const ExpressionPage = () => {
   return (
     <>
       <Navbar />
+      {loading ? (
+        <>
+          <div
+            style={{
+              width: "100%",
+              height: "100vh",
+              marginTop: "8vh",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+            <Typography sx={{fontWeight:500, marginTop:"3vh"}} color="#fff" variant="h6">Sit Tight. Working on your request ...</Typography>
+          </div>
+        </>
+      ) :
+      <>
       <Grid spacing={0} container>
         <Grid xs={12} sm={12} item>
           <motion.div
@@ -299,6 +324,7 @@ const ExpressionPage = () => {
           </motion.div>
         </Grid>
       </Grid>
+      </>}
       <Footer />
     </>
   );
